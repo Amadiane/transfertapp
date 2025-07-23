@@ -1,0 +1,16 @@
+# Ignore l’environnement virtuel Python
+venv/
+
+# Ignore les fichiers compilés Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Fichiers de log et de cache
+*.log
+*.sqlite3
+*.db
+
+# Environnements d’éditeur
+.vscode/
+.idea/
