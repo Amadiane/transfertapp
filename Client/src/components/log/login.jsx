@@ -3,7 +3,6 @@ import { Eye, EyeOff, Lock, User, AlertCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import API from "../../config/apiConfig";
 
-
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -30,20 +29,21 @@ const Login = () => {
 
       if (!response.ok) {
         setError("Identifiants invalides");
+        setIsLoading(false);
         return;
       }
 
       const data = await response.json();
-      const token = data.access;
 
-      // 💾 Stocker le token localement
-      localStorage.setItem("access_token", token);
+      // 💾 Stocker access et refresh token localement
+      localStorage.setItem("accessToken", data.access);
+      localStorage.setItem("refreshToken", data.refresh);
 
       // 📥 Récupération des infos utilisateur
       const userResponse = await fetch(API.GET_USER_DATA, {
         method: "GET",
         headers: {
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${data.access}`,
           "Content-Type": "application/json",
         },
       });
@@ -63,12 +63,10 @@ const Login = () => {
       }
     } catch (err) {
       setError(err.message || "Erreur lors de la connexion");
-      console.error(err);
     } finally {
       setIsLoading(false);
     }
   };
-
   return (
     <div style={{
       minHeight: '100vh',
