@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import User
+from .models import User, Club
+
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -15,3 +16,10 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
+
+
+#Club Serializer
+class ClubSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Club
+        fields = ['id', 'name', 'logo']

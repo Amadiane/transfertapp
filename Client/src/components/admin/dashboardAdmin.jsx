@@ -10,6 +10,10 @@ const DashboardAdmin = () => {
     navigate('/enregistrerEmploye');
   };
 
+  const goToGestionClubs = () => {
+    navigate('/gestionClubs');
+  };
+
   const goToLogout = () => {
     // Aller sur la page Logout qui fera la vraie déconnexion (appel API + nettoyage tokens)
     navigate('/logout');
@@ -19,6 +23,7 @@ const DashboardAdmin = () => {
     <div className="dashboard-container">
       <h1>Tableau de bord Administrateur</h1>
       <button onClick={goToRegister}>Enregistrer un employé</button>
+      <button onClick={goToGestionClubs}>Clubs</button>
       <button onClick={goToLogout}>Logout</button>
       {/* Tu peux ajouter d'autres composants ici */}
     </div>
