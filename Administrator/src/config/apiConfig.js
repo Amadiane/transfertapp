@@ -9,9 +9,9 @@ const API_ENDPOINTS = {
   REFRESH_TOKEN: `${API_BASE_URL}/token/refresh/`,
   GET_USER_DATA: `${API_BASE_URL}/me/`,
   LOGOUT: `${API_BASE_URL}/logout/`,
-  CLUBS: `${API_BASE_URL}/clubs/`,
-  CLUB_LIST: `${API_BASE_URL}/clubs/`,               // GET (liste) / POST (ajout)
-  CLUB_DETAIL: (id) => `${API_BASE_URL}/clubs/${id}/`, // GET / PUT / DELETE pour un club
+  TRANSACTIONS: `${API_BASE_URL}/transactions/`,           // Pour POST et GET via DRF generic view
+  LIST_TRANSACTIONS: `${API_BASE_URL}/transactions/list/`, // Pour la fonction list_transactions
+  CREATE_TRANSACTION: `${API_BASE_URL}/transactions/create/`, // Si besoin d’un endpoint séparé
 
 };
 

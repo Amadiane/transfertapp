@@ -49,7 +49,7 @@ MIDDLEWARE = [
 ]
 
 
-ROOT_URLCONF = 'footgn.urls'
+ROOT_URLCONF = 'transfert.urls'
 
 TEMPLATES = [
     {
@@ -87,7 +87,7 @@ SIMPLE_JWT = {
 }
 
 
-WSGI_APPLICATION = 'footgn.wsgi.application'
+WSGI_APPLICATION = 'transfert.wsgi.application'
 
 
 # Database
@@ -96,7 +96,7 @@ WSGI_APPLICATION = 'footgn.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'footgndatabase',
+        'NAME': 'transfertdatabase',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',  # ou l'IP du serveur MySQL

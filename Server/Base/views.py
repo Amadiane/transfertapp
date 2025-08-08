@@ -9,8 +9,6 @@ from .serializers import UserSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.views import APIView 
-from .serializers import ClubSerializer
-from .models import Club
 
 
 
@@ -63,45 +61,34 @@ class LogoutView(APIView):
             return Response({"detail": "Token invalide"}, status=status.HTTP_400_BAD_REQUEST)
 
 
-#ClubView
+#transaction
+# views.py
+from rest_framework import generics, permissions
+from .models import Transaction
+from .serializers import TransactionSerializer
 
+class TransactionListCreateView(generics.ListCreateAPIView):
+    queryset = Transaction.objects.all().order_by('-date_transfert')
+    serializer_class = TransactionSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
+class TransactionRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
-@api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
-def club_list_create(request):
-    if request.method == 'GET':
-        clubs = Club.objects.all()
-        serializer = ClubSerializer(clubs, many=True, context={'request': request})
-        return Response(serializer.data)
+#1. Afficher le résultat (transaction) juste après un POST
+@api_view(['POST'])
+def create_transaction(request):
+    serializer = TransactionSerializer(data=request.data)
+    if serializer.is_valid():
+        transaction = serializer.save()
+        return Response(TransactionSerializer(transaction).data, status=201)
+    return Response(serializer.errors, status=400)
 
-    elif request.method == 'POST':
-        serializer = ClubSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['GET', 'PUT', 'DELETE'])
-@permission_classes([IsAuthenticated])
-def club_detail(request, pk):
-    try:
-        club = Club.objects.get(pk=pk)
-    except Club.DoesNotExist:
-        return Response({'detail': 'Club not found'}, status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        serializer = ClubSerializer(club, context={'request': request})
-        return Response(serializer.data)
-
-    elif request.method == 'PUT':
-        serializer = ClubSerializer(club, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        club.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+#A. Créer une vue pour lister toutes les transactions
+@api_view(['GET'])
+def list_transactions(request):
+    transactions = Transaction.objects.all().order_by('-date_transfert')
+    serializer = TransactionSerializer(transactions, many=True)
+    return Response(serializer.data)
