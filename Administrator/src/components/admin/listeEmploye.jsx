@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import API_ENDPOINTS from '../../config/apiConfig';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function ListeEmploye() {
+  const navigate = useNavigate();
   const [employees, setEmployees] = useState([]);
   const [editEmployee, setEditEmployee] = useState(null);
   const [formData, setFormData] = useState({ username: "", email: "", ville: "", role: "employe" });
@@ -93,7 +94,13 @@ export default function ListeEmploye() {
   }, []);
 
   return (
+
+  
+    
     <div style={{ padding: "20px" }}>
+
+
+
       <h2>Liste des Employés</h2>
       <button
         style={{ marginBottom: "10px", backgroundColor: "green", color: "white", padding: "8px" }}
@@ -158,6 +165,7 @@ export default function ListeEmploye() {
                   <td>
                     <button onClick={() => startEdit(emp)}>✏ Edit</button>
                     <button onClick={() => deleteEmployee(emp.id)}>🗑 Delete</button>
+                    <button onClick={() => navigate(`/employe/${emp.id}`)}>👁 Voir Dashboard</button>
                   </td>
                 </>
               )}
