@@ -5,6 +5,16 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.urls import path,include
 from . import views
 
+
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import UserViewSet, register_user, get_user_data, MyTokenObtainPairView, LogoutView
+from rest_framework_simplejwt.views import TokenRefreshView
+
+
+router = DefaultRouter()
+router.register(r'users', UserViewSet, basename='user')
+
 urlpatterns = [
     path('me/', get_user_data, name='user-data'),
     path('login/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -14,5 +24,6 @@ urlpatterns = [
     path('transactions/', TransactionListCreateView.as_view(), name='transaction-list-create'),
     path('transactions/<int:pk>/', TransactionRetrieveUpdateDestroyView.as_view(), name='transaction-detail'),
     path('transactions/create/', create_transaction, name='create_transaction'),
-    path('transactions/list/', list_transactions, name='list_transactions'), 
+    path('transactions/list/', list_transactions, name='list_transactions'),
+    path('', include(router.urls)), 
 ]

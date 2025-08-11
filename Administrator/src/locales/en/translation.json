@@ -1,0 +1,24 @@
+{
+  "admin_dashboard": "Admin Dashboard",
+  "register_employee": "Manage Employee",
+  "make_transfer": "Transfer",
+  "logout": "Logout",
+
+  
+  "register_new_employee": "Register a New Employee",
+  "username": "Username",
+  "email": "Email",
+  "password": "Password",
+  "city": "City",
+  "choose_role": "-- Choose a role --",
+  "administrator": "Administrator",
+  "employee": "Employee",
+  "register": "Register",
+  "registering": "Registering...",
+  "employee_registered_success": "Employee successfully registered!",
+  "token_missing": "Missing token",
+  "session_expired": "Session expired, please log in again.",
+  "token_refresh_failed": "Unable to refresh token"
+
+
+}

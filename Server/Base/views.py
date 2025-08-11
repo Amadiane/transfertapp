@@ -47,6 +47,59 @@ def get_user_data(request):
     return Response(data)
 
 
+
+
+# views.py
+from rest_framework import viewsets, permissions, status
+from rest_framework.response import Response
+from .models import User
+from .serializers import UserSerializer
+from rest_framework.permissions import IsAuthenticated
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all().order_by('id')
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]  # uniquement utilisateurs connectés
+
+    def list(self, request, *args, **kwargs):
+        """ GET : récupérer tous les utilisateurs """
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def update(self, request, *args, **kwargs):
+        """ PUT/PATCH : modifier un utilisateur """
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+    def destroy(self, request, *args, **kwargs):
+        """ DELETE : supprimer un utilisateur """
+        instance = self.get_object()
+        instance.delete()
+        return Response({"message": "Utilisateur supprimé avec succès"}, status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #LogoutView
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]  # Seuls les utilisateurs connectés peuvent se déconnecter

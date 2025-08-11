@@ -1,0 +1,24 @@
+{
+  "admin_dashboard": "Tableau de bord Administrateur",
+  "register_employee": "Gérer employé",
+  "make_transfer": "Transfert",
+  "logout": "Déconnexion",
+
+  
+  "register_new_employee": "Enregistrer un nouvel employé",
+  "username": "Nom d'utilisateur",
+  "email": "Email",
+  "password": "Mot de passe",
+  "city": "Ville",
+  "choose_role": "-- Choisir un rôle --",
+  "administrator": "Administrateur",
+  "employee": "Employé",
+  "register": "Enregistrer",
+  "registering": "Enregistrement...",
+  "employee_registered_success": "Employé enregistré avec succès !",
+  "token_missing": "Token manquant",
+  "session_expired": "Session expirée, veuillez vous reconnecter.",
+  "token_refresh_failed": "Impossible de rafraîchir le token"
+
+
+}

@@ -1,0 +1,24 @@
+{
+  "admin_dashboard": "لوحة تحكم المدير",
+  "register_employee": "إدارة الموظف",
+  "make_transfer": "تحويل",
+  "logout": "تسجيل الخروج",
+
+  
+  "register_new_employee": "تسجيل موظف جديد",
+  "username": "اسم المستخدم",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "city": "المدينة",
+  "choose_role": "-- اختر دوراً --",
+  "administrator": "مسؤول",
+  "employee": "موظف",
+  "register": "تسجيل",
+  "registering": "جارٍ التسجيل...",
+  "employee_registered_success": "تم تسجيل الموظف بنجاح!",
+  "token_missing": "الرمز مفقود",
+  "session_expired": "انتهت الجلسة، يرجى تسجيل الدخول مرة أخرى.",
+  "token_refresh_failed": "غير قادر على تحديث الرمز"
+
+
+}

@@ -1,11 +1,14 @@
-// src/pages/EnregistrerEmploye.jsx
-
 import React, { useState } from 'react';
 import API from '../../config/apiConfig'; // ajuste le chemin si besoin
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const EnregistrerEmploye = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
+  
+
+
 
   const [formData, setFormData] = useState({
     username: '',
@@ -18,7 +21,6 @@ const EnregistrerEmploye = () => {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
-  // Fonction pour rafraîchir le token
   const refreshToken = async () => {
     const refresh = localStorage.getItem('refreshToken');
     if (!refresh) {
@@ -33,10 +35,9 @@ const EnregistrerEmploye = () => {
         body: JSON.stringify({ refresh }),
       });
 
-      console.log('Refresh token response status:', res.status);
-
       if (res.ok) {
         const data = await res.json();
+        
         localStorage.setItem('accessToken', data.access);
         return data.access;
       } else {
@@ -50,10 +51,9 @@ const EnregistrerEmploye = () => {
     }
   };
 
-  // Fonction fetch avec gestion automatique du refresh token
   const fetchWithRefresh = async (url, options = {}) => {
     let token = localStorage.getItem('accessToken');
-    if (!token) throw new Error('Token manquant');
+    if (!token) throw new Error(t('token_missing'));
 
     let res = await fetch(url, {
       ...options,
@@ -64,18 +64,15 @@ const EnregistrerEmploye = () => {
     });
 
     if (res.status === 401) {
-      console.log('Access token expiré, tentative de rafraîchissement');
       const newToken = await refreshToken();
       if (!newToken) {
-        // Si pas possible de rafraîchir, on déconnecte
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
-        alert("Session expirée, veuillez vous reconnecter.");
+        alert(t('session_expired'));
         navigate('/login');
-        throw new Error('Impossible de rafraîchir le token');
+        throw new Error(t('token_refresh_failed'));
       }
 
-      // Nouvelle tentative avec token rafraîchi
       res = await fetch(url, {
         ...options,
         headers: {
@@ -96,58 +93,53 @@ const EnregistrerEmploye = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
+  setErrorMsg('');
+  setLoading(true);
 
-    setErrorMsg('');
-    setLoading(true);
+  try {
+    const response = await fetchWithRefresh(API.REGISTER, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
 
-    try {
-      const response = await fetchWithRefresh(API.REGISTER, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Erreur de validation :", errorData);
-        setErrorMsg(JSON.stringify(errorData));
-        setLoading(false);
-        return;
-      }
-
-      const data = await response.json();
-      console.log("Employé enregistré :", data);
-
-      // Optionnel : reset formulaire et/ou redirection
-      setFormData({
-        username: '',
-        email: '',
-        password: '',
-        ville: '',
-        role: '',
-      });
-      alert("Employé enregistré avec succès !");
+    if (!response.ok) {
+      const errorData = await response.json();
+      setErrorMsg(JSON.stringify(errorData));
       setLoading(false);
-      navigate('/dashboard'); // (on doit créer une nouvelle page appeler liste des employés où on pourra modifier, supprimer et autres)
-    } catch (error) {
-      console.error("Erreur réseau :", error);
-      setErrorMsg(error.message);
-      setLoading(false);
+      return;
     }
-  };
+
+    // Juste attendre la fin de la lecture, pas besoin de data ici
+    await response.json();
+
+    setFormData({
+      username: '',
+      email: '',
+      password: '',
+      ville: '',
+      role: '',
+    });
+
+    alert(t('employee_registered_success'));
+    setLoading(false);
+    navigate('/listeEmploye');
+  } catch (error) {
+    setErrorMsg(error.message);
+    setLoading(false);
+  }
+};
 
   return (
     <div className="container" style={{ maxWidth: '500px', margin: 'auto', padding: '20px' }}>
-      <h2>Enregistrer un nouvel employé</h2>
+      <h2>{t('register_new_employee')}</h2>
       {errorMsg && <div style={{ color: 'red', marginBottom: '10px' }}>{errorMsg}</div>}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="username"
-          placeholder="Nom d'utilisateur"
+          placeholder={t('username')}
           value={formData.username}
           onChange={handleChange}
           required
@@ -156,7 +148,7 @@ const EnregistrerEmploye = () => {
         <input
           type="email"
           name="email"
-          placeholder="Email"
+          placeholder={t('email')}
           value={formData.email}
           onChange={handleChange}
           required
@@ -165,7 +157,7 @@ const EnregistrerEmploye = () => {
         <input
           type="password"
           name="password"
-          placeholder="Mot de passe"
+          placeholder={t('password')}
           value={formData.password}
           onChange={handleChange}
           required
@@ -174,7 +166,7 @@ const EnregistrerEmploye = () => {
         <input
           type="text"
           name="ville"
-          placeholder="Ville"
+          placeholder={t('city')}
           value={formData.ville}
           onChange={handleChange}
           style={{ width: '100%', marginBottom: '10px', padding: '8px' }}
@@ -187,9 +179,9 @@ const EnregistrerEmploye = () => {
           required
           style={{ width: '100%', marginBottom: '20px', padding: '8px' }}
         >
-          <option value="">-- Choisir un rôle --</option>
-          <option value="admin">Administrateur</option>
-          <option value="employe">Employé</option>
+          <option value="">{t('choose_role')}</option>
+          <option value="admin">{t('administrator')}</option>
+          <option value="employe">{t('employee')}</option>
         </select>
 
         <button
@@ -198,7 +190,7 @@ const EnregistrerEmploye = () => {
           style={{
             width: '100%',
             padding: '10px',
-            backgroundColor: loading ? '#ccc' : '#059669',
+            backgroundColor: loading ? '#ccc' : '#3b82f6',
             color: 'white',
             border: 'none',
             borderRadius: '5px',
@@ -206,7 +198,7 @@ const EnregistrerEmploye = () => {
             fontWeight: 'bold',
           }}
         >
-          {loading ? 'Enregistrement...' : 'Enregistrer'}
+          {loading ? t('registering') : t('register')}
         </button>
       </form>
     </div>

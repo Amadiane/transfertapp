@@ -54,12 +54,14 @@ const Login = () => {
 
       const userData = await userResponse.json();
       localStorage.setItem("user", JSON.stringify(userData));
+      localStorage.setItem("userRole", userData.role);
+
 
       // ✅ Redirection selon le rôle
       if (userData.role === "admin") {
         navigate("/dashboardAdmin");
       } else {
-        navigate("/dashboardUser");
+        navigate("/dashboardEmploye");
       }
     } catch (err) {
       setError(err.message || "Erreur lors de la connexion");
@@ -67,6 +69,8 @@ const Login = () => {
       setIsLoading(false);
     }
   };
+
+  
   return (
     <div style={{
       minHeight: '100vh',
