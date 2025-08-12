@@ -13,6 +13,7 @@ import ListeEmploye from "./components/admin/listeEmploye.jsx";
 import InactivityHandler from "./config/InactivityHandler.jsx";
 import ProfilEmploye from "./components/employe/profilEmploye.jsx";
 import TransactionsLists from "./components/admin/transactionsLists.jsx";
+import RapportTransactions from "./components/admin/rapportTransactions.jsx";
 
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
           <Route path="/listeEmploye" element={<ListeEmploye />} />
           <Route path="/profilEmploye" element={<ProfilEmploye />} />
           <Route path="/employe/:id" element={<DashboardEmploye isAdminView={true} />} />
-          
+          <Route path="/rapportTransactions" element={<RapportTransactions />} />
         </Route>
 
         {/* Routes protégées Employé */}

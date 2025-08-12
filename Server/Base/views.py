@@ -11,16 +11,9 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.views import APIView 
 
 
-
-
-
-
-
 @method_decorator(csrf_exempt, name='dispatch')
 class MyTokenObtainPairView(TokenObtainPairView):
     pass
-
-
 
 
 @api_view(['POST'])
@@ -30,7 +23,6 @@ def register_user(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 
 
@@ -45,8 +37,6 @@ def get_user_data(request):
         'role': user.role,
     }
     return Response(data)
-
-
 
 
 # views.py
@@ -84,22 +74,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #LogoutView
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]  # Seuls les utilisateurs connectés peuvent se déconnecter
@@ -115,156 +89,6 @@ class LogoutView(APIView):
 
 
 #transaction
-# views.py
-# from rest_framework import generics, permissions
-# from .models import Transaction
-# from .serializers import TransactionSerializer
-
-# from rest_framework.permissions import IsAuthenticated
-
-# class TransactionListCreateView(generics.ListCreateAPIView):
-#     queryset = Transaction.objects.all().order_by('-date_transfert')
-#     serializer_class = TransactionSerializer
-#     permission_classes = [IsAuthenticated]
-
-#     def perform_create(self, serializer):
-#         # On force sender à être l'utilisateur connecté
-#         serializer.save(sender=self.request.user)
-
-
-# class TransactionRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Transaction.objects.all()
-#     serializer_class = TransactionSerializer
-#     permission_classes = [permissions.IsAuthenticated]
-
-# #1. Afficher le résultat (transaction) juste après un POST
-# @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
-# def create_transaction(request):
-#     data = request.data.copy()
-#     data['sender'] = request.user.id  # IMPORTANT : fixe le sender à l'utilisateur connecté
-#     serializer = TransactionSerializer(data=data)
-#     if serializer.is_valid():
-#         serializer.save(sender=request.user)
-#         return Response(serializer.data, status=201)
-#     return Response(serializer.errors, status=400)
-
-
-# #A. Créer une vue pour lister toutes les transactions
-# @api_view(['GET'])
-# def list_transactions(request):
-#     transactions = Transaction.objects.all().order_by('-date_transfert')
-#     serializer = TransactionSerializer(transactions, many=True)
-#     return Response(serializer.data)
-
-
-# #Trasaction reçu à afficher chez tous les utilisateurs
-# from rest_framework.decorators import api_view, permission_classes
-# from rest_framework.permissions import IsAuthenticated
-# from rest_framework.response import Response
-# from .models import Transaction
-# from .serializers import TransactionSerializer
-
-# @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
-# def list_received_transactions(request):
-#     # On récupère toutes les transactions reçues par tous
-#     # Si tu veux filtrer par utilisateur, par ex. pour un employé, tu ferais request.user
-#     transactions = Transaction.objects.all()
-#     serializer = TransactionSerializer(transactions, many=True)
-#     return Response(serializer.data)
-
-# from django.utils.decorators import method_decorator
-# from django.views.decorators.csrf import csrf_exempt
-# from rest_framework_simplejwt.authentication import JWTAuthentication
-# from rest_framework.permissions import IsAdminUser
-# from rest_framework import viewsets, status
-# from rest_framework.decorators import action
-# from rest_framework.response import Response
-# from .models import Transaction
-# from .serializers import TransactionSerializer
-
-# @method_decorator(csrf_exempt, name='dispatch')
-# class TransactionViewSet(viewsets.ModelViewSet):
-#     queryset = Transaction.objects.all()
-#     serializer_class = TransactionSerializer
-#     authentication_classes = [JWTAuthentication]
-#     permission_classes = [IsAdminUser]
-
-#     @action(detail=True, methods=['patch'])
-#     def distribuer(self, request, pk=None):
-#         transaction = self.get_object()
-#         if transaction.is_distribue:
-#             return Response({'detail': 'Transaction déjà distribuée.'}, status=status.HTTP_400_BAD_REQUEST)
-#         transaction.is_distribue = True
-#         transaction.save()
-#         return Response({'detail': 'Transaction marquée comme distribuée.'}, status=status.HTTP_200_OK)
-
-#     @action(detail=True, methods=['patch'])
-#     def annuler_distribution(self, request, pk=None):
-#         transaction = self.get_object()
-#         if not transaction.is_distribue:
-#             return Response({'detail': 'Transaction non distribuée.'}, status=status.HTTP_400_BAD_REQUEST)
-#         transaction.is_distribue = False
-#         transaction.save()
-#         return Response({'detail': 'Distribution annulée.'}, status=status.HTTP_200_OK)
-
-
-
-# #Backend — Restreindre la modification uniquement aux admins
-
-# from rest_framework.permissions import IsAdminUser
-
-# @api_view(['PUT'])
-# @permission_classes([IsAdminUser])
-# def update_transaction(request, pk):
-#     try:
-#         transaction = Transaction.objects.get(pk=pk)
-#     except Transaction.DoesNotExist:
-#         return Response({"error": "Transaction non trouvée"}, status=404)
-    
-#     serializer = TransactionSerializer(transaction, data=request.data, partial=True)
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response(serializer.data)
-#     return Response(serializer.errors, status=400)
-
-
-
-# #modifier et supprimer une transaction
-
-# from rest_framework.decorators import api_view, permission_classes
-# from rest_framework.permissions import IsAdminUser, IsAuthenticated
-# from rest_framework.response import Response
-# from rest_framework import status
-# from .models import Transaction
-# from .serializers import TransactionSerializer
-
-# @api_view(['PUT', 'PATCH'])
-# @permission_classes([IsAdminUser])  # Seuls les admins peuvent modifier
-# def update_transaction(request, pk):
-#     try:
-#         transaction = Transaction.objects.get(pk=pk)
-#     except Transaction.DoesNotExist:
-#         return Response({"error": "Transaction non trouvée"}, status=status.HTTP_404_NOT_FOUND)
-    
-#     serializer = TransactionSerializer(transaction, data=request.data, partial=True)
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response(serializer.data)
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# @api_view(['DELETE'])
-# @permission_classes([IsAdminUser])  # Seuls les admins peuvent supprimer
-# def delete_transaction(request, pk):
-#     try:
-#         transaction = Transaction.objects.get(pk=pk)
-#     except Transaction.DoesNotExist:
-#         return Response({"error": "Transaction non trouvée"}, status=status.HTTP_404_NOT_FOUND)
-
-#     transaction.delete()
-#     return Response({"message": "Transaction supprimée avec succès"}, status=status.HTTP_204_NO_CONTENT)
 
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
@@ -305,3 +129,101 @@ class TransactionViewSet(viewsets.ModelViewSet):
         transaction.date_distribution = None
         transaction.save()
         return Response({"message": "Distribution annulée avec succès"}, status=status.HTTP_200_OK)
+
+
+
+
+
+
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from django.utils.timezone import now
+from django.db.models import Sum, Count
+from django.db.models.functions import TruncDay, TruncWeek, TruncMonth, TruncYear
+from .models import Transaction
+from datetime import timedelta
+
+
+class TransactionReportView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        period = request.query_params.get('period', 'day')
+        user = request.user
+        # Si admin, on peut faire rapport sur toutes les transactions,
+        # sinon seulement sur celles de l'utilisateur
+        if user.is_staff:
+            qs = Transaction.objects.all()
+        else:
+            qs = Transaction.objects.filter(sender=user)
+
+        now_dt = now()
+
+        # On tronque la date selon la période
+        if period == 'day':
+            qs = qs.filter(date_transfert__date=now_dt.date())
+        elif period == 'week':
+            # La semaine ISO (lundi-dimanche)
+            # Filtrer la date entre le début de la semaine et maintenant
+            start_week = now_dt - timedelta(days=now_dt.weekday())
+            qs = qs.filter(date_transfert__date__gte=start_week.date())
+        elif period == 'month':
+            qs = qs.filter(date_transfert__year=now_dt.year, date_transfert__month=now_dt.month)
+        elif period == 'year':
+            qs = qs.filter(date_transfert__year=now_dt.year)
+        else:
+            return Response({"error": "Période invalide"}, status=400)
+
+        total_transactions = qs.count()
+        total_montant_envoye = qs.aggregate(Sum('montant_envoye'))['montant_envoye__sum'] or 0
+        total_montant_remis = qs.aggregate(Sum('montant_remis'))['montant_remis__sum'] or 0
+        total_gain = qs.aggregate(Sum('gain_transfert'))['gain_transfert__sum'] or 0
+
+        data = {
+            "total_transactions": total_transactions,
+            "total_montant_envoye": total_montant_envoye,
+            "total_montant_remis": total_montant_remis,
+            "total_gain": total_gain,
+        }
+
+        return Response(data)
+
+
+from django.test import TestCase
+from django.contrib.auth.models import User
+from rest_framework.test import APIClient
+from .models import Transaction
+from django.utils.timezone import now, timedelta
+
+class TransactionReportTest(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.admin = User.objects.create_user(username='admin', password='pass', is_staff=True)
+        self.user = User.objects.create_user(username='user', password='pass')
+        # Transactions pour user
+        Transaction.objects.create(sender=self.user, date_transfert=now(), montant_envoye=100, montant_remis=95, gain_transfert=5)
+        Transaction.objects.create(sender=self.user, date_transfert=now() - timedelta(days=2), montant_envoye=200, montant_remis=190, gain_transfert=10)
+        # Transaction pour un autre utilisateur
+        other_user = User.objects.create_user(username='other', password='pass')
+        Transaction.objects.create(sender=other_user, date_transfert=now(), montant_envoye=300, montant_remis=290, gain_transfert=10)
+
+    def test_report_day_user(self):
+        self.client.force_authenticate(user=self.user)
+        response = self.client.get('/api/transactions/report/?period=day')
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data['total_transactions'], 1)  # Seulement celle du jour
+
+    def test_report_day_admin(self):
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.get('/api/transactions/report/?period=day')
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertEqual(data['total_transactions'], 2)  # Transactions du jour de tous les users
+
+    def test_report_invalid_period(self):
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.get('/api/transactions/report/?period=invalid')
+        self.assertEqual(response.status_code, 400)

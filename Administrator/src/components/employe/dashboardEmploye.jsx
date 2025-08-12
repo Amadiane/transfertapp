@@ -9,6 +9,8 @@ const DashboardEmploye = ({ isAdminView }) => {
 
   const [employeeData, setEmployeeData] = useState(null);
   const [error, setError] = useState(null);
+  const [showProfile, setShowProfile] = useState(false);
+  const [hoveredButton, setHoveredButton] = useState(null);
 
   useEffect(() => {
     if (isAdminView && id) {
@@ -24,7 +26,7 @@ const DashboardEmploye = ({ isAdminView }) => {
       const token = localStorage.getItem("accessToken");
       const url = employeeId === 'me' 
         ? API_ENDPOINTS.GET_USER_DATA 
-        : `${API_ENDPOINTS.USERS}${employeeId}/`;  // AJOUT DU SLASH FINAL IMPORTANT
+        : `${API_ENDPOINTS.USERS}${employeeId}/`;  // Slash final important
       const response = await fetch(url, {
         headers: { 
           Authorization: `Bearer ${token}`,
@@ -50,38 +52,102 @@ const DashboardEmploye = ({ isAdminView }) => {
   };
 
   if (error) return <div style={{ color: 'red', textAlign: 'center', marginTop: 20 }}>{error}</div>;
-
   if (!employeeData) return <div>Chargement...</div>;
 
+  const containerStyle = {
+    maxWidth: 600,
+    margin: 'auto',
+    padding: 20,
+    backgroundColor: 'white',
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    color: '#1f2937',
+  };
+
+  const buttonStyle = {
+    width: '100%',
+    padding: '14px 0',
+    margin: '12px 0',
+    background: 'linear-gradient(90deg, #3b82f6, #6366f1)',
+    border: 'none',
+    borderRadius: 8,
+    color: '#fff',
+    fontWeight: '600',
+    fontSize: '1.1rem',
+    cursor: 'pointer',
+    transition: 'background 0.3s ease',
+    position: 'relative',
+  };
+
+  const buttonHoverStyle = {
+    background: 'linear-gradient(90deg, #2563eb, #4f46e5)',
+  };
+
+  const profileBoxStyle = {
+    backgroundColor: '#f0f4f8',
+    padding: 15,
+    borderRadius: 8,
+    marginTop: 5,
+    boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+    fontSize: '0.9rem',
+    color: '#1f2937',
+  };
+
+  const buttons = [
+    { path: '/sendTransfert', label: 'Faire un transfert' },
+    { path: '/transactionsLists', label: 'Transfert reçu' },
+    { path: '/rapportTransactions', label: 'Voir mes rapports' },
+    { path: '/logout', label: 'Se déconnecter' },
+  ];
+
   return (
-    <div style={{ maxWidth: 600, margin: 'auto', padding: 20, backgroundColor: 'white' }}>
+    <div style={containerStyle}>
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 20 }}>
         <LanguageSelector />
       </div>
 
-      <h1>Dashboard {isAdminView ? `de ${employeeData.username}` : "Employé"}</h1>
+      <h1 style={{ textAlign: 'center', marginBottom: 30 }}>
+        Dashboard {isAdminView ? `de ${employeeData.username}` : "Employé"}
+      </h1>
 
-      <button onClick={() => navigate(`/monProfil`)} style={{ margin: '10px 0' }}>
-        Mon profil
+      {/* Bouton Profil avec toggle */}
+      <button
+        onClick={() => setShowProfile(!showProfile)}
+        aria-label="Profil"
+        style={{
+          ...buttonStyle,
+          ...(hoveredButton === 0 ? buttonHoverStyle : {}),
+        }}
+        onMouseEnter={() => setHoveredButton(0)}
+        onMouseLeave={() => setHoveredButton(null)}
+      >
+        Profil
       </button>
 
-      <button onClick={() => navigate(`/sendTransfert`)} style={{ margin: '10px 0' }}>
-        Faire un transfert
-      </button>
+      {showProfile && (
+        <div style={profileBoxStyle}>
+          <p><strong>Nom d’utilisateur :</strong> {employeeData.username}</p>
+          <p><strong>Email :</strong> {employeeData.email}</p>
+          <p><strong>Ville :</strong> {employeeData.ville || 'Non renseignée'}</p>
+          <p><strong>Rôle :</strong> {employeeData.role}</p>
+        </div>
+      )}
 
-      <button onClick={() => navigate(`/transactionsLists`)} style={{ margin: '10px 0' }}>
-        Transfert reçu
-      </button>
-
-      <button onClick={() => navigate(`/rapports`)} style={{ margin: '10px 0' }}>
-        Voir mes rapports
-      </button>
-
-      <button onClick={() => navigate('/logout')} style={{ margin: '10px 0' }}>
-        Se déconnecter
-      </button>
-
-      {/* Ajoute ici d’autres boutons ou fonctionnalités spécifiques */}
+      {/* Autres boutons */}
+      {buttons.map(({ path, label }, idx) => (
+        <button
+          key={path}
+          onClick={() => navigate(path)}
+          aria-label={label}
+          style={{
+            ...buttonStyle,
+            ...(hoveredButton === idx + 1 ? buttonHoverStyle : {}),
+          }}
+          onMouseEnter={() => setHoveredButton(idx + 1)}
+          onMouseLeave={() => setHoveredButton(null)}
+        >
+          {label}
+        </button>
+      ))}
     </div>
   );
 };

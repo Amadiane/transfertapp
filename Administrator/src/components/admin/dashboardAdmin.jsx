@@ -1,11 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from '../../LanguageSelector';
+import API_ENDPOINTS from '../../config/apiConfig';
 
 const DashboardAdmin = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  const [hoveredButton, setHoveredButton] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [showProfile, setShowProfile] = useState(false);
+
+  // Récupération des infos utilisateur connecté
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        const res = await fetch(API_ENDPOINTS.GET_USER_DATA, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setUserData(data);
+        }
+      } catch (error) {
+        console.error("Erreur récupération utilisateur", error);
+      }
+    };
+    fetchUser();
+  }, []);
 
   const containerStyle = {
     maxWidth: 600,
@@ -16,14 +40,6 @@ const DashboardAdmin = () => {
     boxShadow: '0 8px 24px rgba(59, 130, 246, 0.15)',
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
     color: '#1f2937',
-  };
-
-  const headerStyle = {
-    color: '#3b82f6',
-    fontWeight: '700',
-    fontSize: '2rem',
-    marginBottom: 30,
-    textAlign: 'center',
   };
 
   const buttonStyle = {
@@ -38,19 +54,26 @@ const DashboardAdmin = () => {
     fontSize: '1.1rem',
     cursor: 'pointer',
     transition: 'background 0.3s ease',
+    position: 'relative',
   };
 
   const buttonHoverStyle = {
     background: 'linear-gradient(90deg, #2563eb, #4f46e5)',
   };
 
-  const [hoveredButton, setHoveredButton] = React.useState(null);
+  const profileBoxStyle = {
+    backgroundColor: '#f0f4f8',
+    padding: 15,
+    borderRadius: 8,
+    marginTop: 5,
+    boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+    fontSize: '0.9rem',
+    color: '#1f2937',
+  };
 
-  // Nouveau tableau avec tous les boutons et leurs chemins + labels
   const buttons = [
-    { path: '/profil', label: t('profile') || 'Profil' },
     { path: '/transactionsLists', label: t('received_transfers') || 'Transferts reçus' },
-    { path: '/rapportsActivites', label: t('activity_reports') || "Rapports d'activités" },
+    { path: '/rapportTransactions', label: t('activity_reports') || "Rapports d'activités" },
     { path: '/listeEmploye', label: t('register_employee') || 'Enregistrer Employé' },
     { path: '/sendTransfert', label: t('make_transfer') || 'Faire un transfert' },
     { path: '/logout', label: t('logout') || 'Se déconnecter' },
@@ -62,8 +85,34 @@ const DashboardAdmin = () => {
         <LanguageSelector />
       </div>
 
-      <h1 style={headerStyle}>{t('admin_dashboard') || 'Tableau de bord Admin'}</h1>
+      <h1 style={{ textAlign: 'center', marginBottom: 30 }}>
+        {t('admin_dashboard') || 'Tableau de bord Admin'}
+      </h1>
 
+      {/* Bouton Profil avec toggle */}
+      <button
+        onClick={() => setShowProfile(!showProfile)}
+        aria-label={t('profile') || 'Profil'}
+        style={{
+          ...buttonStyle,
+          ...(hoveredButton === 0 ? buttonHoverStyle : {}),
+        }}
+        onMouseEnter={() => setHoveredButton(0)}
+        onMouseLeave={() => setHoveredButton(null)}
+      >
+        {t('profile') || 'Profil'}
+      </button>
+
+      {showProfile && userData && (
+        <div style={profileBoxStyle}>
+          <p><strong>Nom d’utilisateur :</strong> {userData.username}</p>
+          <p><strong>Email :</strong> {userData.email}</p>
+          <p><strong>Ville :</strong> {userData.ville || 'Non renseignée'}</p>
+          <p><strong>Rôle :</strong> {userData.role}</p>
+        </div>
+      )}
+
+      {/* Autres boutons */}
       {buttons.map(({ path, label }, idx) => (
         <button
           key={path}
@@ -71,9 +120,9 @@ const DashboardAdmin = () => {
           aria-label={label}
           style={{
             ...buttonStyle,
-            ...(hoveredButton === idx ? buttonHoverStyle : {}),
+            ...(hoveredButton === idx + 1 ? buttonHoverStyle : {}),
           }}
-          onMouseEnter={() => setHoveredButton(idx)}
+          onMouseEnter={() => setHoveredButton(idx + 1)}
           onMouseLeave={() => setHoveredButton(null)}
         >
           {label}

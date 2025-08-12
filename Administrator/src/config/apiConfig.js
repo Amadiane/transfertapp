@@ -17,6 +17,7 @@ const API_ENDPOINTS = {
   ANNULER_DISTRIBUTION: (id) => `${API_BASE_URL}/transactions/${id}/annuler_distribution/`, // PATCH annuler distribution
   UPDATE_TRANSACTION: (id) => `${API_BASE_URL}/transactions/${id}/`,   // PUT/PATCH update transaction
   DELETE_TRANSACTION: (id) => `${API_BASE_URL}/transactions/${id}/`,   // DELETE transaction
+  TRANSACTION_REPORT: `${API_BASE_URL}/transactions/report/`,
 
 
 };
