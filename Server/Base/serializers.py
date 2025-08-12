@@ -49,11 +49,22 @@ from .models import Transaction
 from decimal import Decimal, ROUND_HALF_UP
 from .utils import get_exchange_rates
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'ville', 'role']
+
 class TransactionSerializer(serializers.ModelSerializer):
+    sender = UserSerializer(read_only=True)  # Embedding full sender info
+
     class Meta:
         model = Transaction
         fields = '__all__'
-        read_only_fields = ('montant_converti', 'montant_remis', 'gain_transfert', 'date_transfert')
+        read_only_fields = ('montant_converti', 'montant_remis', 'gain_transfert', 'date_transfert', 'sender')
+
+    # validate etc. comme avant...
+
+        
 
     def validate(self, data):
         devise_envoyee = data.get('devise_envoyee')

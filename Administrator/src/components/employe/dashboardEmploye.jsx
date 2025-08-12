@@ -69,6 +69,10 @@ const DashboardEmploye = ({ isAdminView }) => {
         Faire un transfert
       </button>
 
+      <button onClick={() => navigate(`/transactionsLists`)} style={{ margin: '10px 0' }}>
+        Transfert reçu
+      </button>
+
       <button onClick={() => navigate(`/rapports`)} style={{ margin: '10px 0' }}>
         Voir mes rapports
       </button>

@@ -14,6 +14,10 @@ const API_ENDPOINTS = {
   TRANSACTIONS: `${API_BASE_URL}/transactions/`,           // Pour POST et GET via DRF generic view
   LIST_TRANSACTIONS: `${API_BASE_URL}/transactions/list/`, // Pour la fonction list_transactions
   CREATE_TRANSACTION: `${API_BASE_URL}/transactions/create/`, // Si besoin d’un endpoint séparé
+  DISTRIBUER_TRANSACTION: (id) => `${API_BASE_URL}/transactions/${id}/distribuer/`,
+  ANNULER_DISTRIBUTION: (id) => `${API_BASE_URL}/transactions/${id}/annuler_distribution/`,
+  UPDATE_TRANSACTION: (id) => `${API_BASE_URL}/transactions/${id}/update/`,
+  DELETE_TRANSACTION: (id) => `${API_BASE_URL}/transactions/${id}/delete/`,
 
 };
 

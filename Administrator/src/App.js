@@ -12,6 +12,7 @@ import ProtectedRoutes from "./components/privateRoute/protectedRoutes.jsx";
 import ListeEmploye from "./components/admin/listeEmploye.jsx";
 import InactivityHandler from "./config/InactivityHandler.jsx";
 import ProfilEmploye from "./components/employe/profilEmploye.jsx";
+import TransactionsLists from "./components/admin/transactionsLists.jsx";
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         {/* Route accessible par admin ET employé */}
         <Route element={<ProtectedRoutes allowedRoles={['admin', 'employe']} />}>
         <Route path="/sendTransfert" element={<SendTransfert />} />
+        <Route path="/transactionsLists" element={<TransactionsLists />} />
         </Route>
       </Routes>
       </InactivityHandler>

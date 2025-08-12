@@ -46,38 +46,39 @@ const DashboardAdmin = () => {
 
   const [hoveredButton, setHoveredButton] = React.useState(null);
 
+  // Nouveau tableau avec tous les boutons et leurs chemins + labels
+  const buttons = [
+    { path: '/profil', label: t('profile') || 'Profil' },
+    { path: '/transactionsLists', label: t('received_transfers') || 'Transferts reçus' },
+    { path: '/rapportsActivites', label: t('activity_reports') || "Rapports d'activités" },
+    { path: '/listeEmploye', label: t('register_employee') || 'Enregistrer Employé' },
+    { path: '/sendTransfert', label: t('make_transfer') || 'Faire un transfert' },
+    { path: '/logout', label: t('logout') || 'Se déconnecter' },
+  ];
+
   return (
     <div style={containerStyle}>
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 25 }}>
         <LanguageSelector />
       </div>
 
-      <h1 style={headerStyle}>{t('admin_dashboard')}</h1>
+      <h1 style={headerStyle}>{t('admin_dashboard') || 'Tableau de bord Admin'}</h1>
 
-      
-      {['/listeEmploye', '/sendTransfert', '/logout'].map((path, idx) => {
-        const labels = [
-          t('register_employee'),  // si tu n’as pas cette clé dans i18n, mettre le texte direct
-          t('make_transfer'),
-          // t('transfert recu'),
-          t('logout'),
-        ];
-        return (
-          <button
-            key={path}
-            onClick={() => navigate(path)}
-            aria-label={labels[idx]}
-            style={{
-              ...buttonStyle,
-              ...(hoveredButton === idx ? buttonHoverStyle : {}),
-            }}
-            onMouseEnter={() => setHoveredButton(idx)}
-            onMouseLeave={() => setHoveredButton(null)}
-          >
-            {labels[idx]}
-          </button>
-        );
-      })}
+      {buttons.map(({ path, label }, idx) => (
+        <button
+          key={path}
+          onClick={() => navigate(path)}
+          aria-label={label}
+          style={{
+            ...buttonStyle,
+            ...(hoveredButton === idx ? buttonHoverStyle : {}),
+          }}
+          onMouseEnter={() => setHoveredButton(idx)}
+          onMouseLeave={() => setHoveredButton(null)}
+        >
+          {label}
+        </button>
+      ))}
     </div>
   );
 };

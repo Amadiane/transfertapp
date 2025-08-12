@@ -33,6 +33,14 @@ class Transaction(models.Model):
         ('GNF', 'Franc Guinéen'),
     ]
 
+    sender = models.ForeignKey(
+        settings.AUTH_USER_MODEL,      # référence le modèle User
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name='transactions_envoyees'
+    )
+
     devise_envoyee = models.CharField(max_length=3, choices=DEVISES)
     montant_envoye = models.DecimalField(max_digits=12, decimal_places=2)
     pourcentage_gain = models.DecimalField(max_digits=5, decimal_places=2)
@@ -44,6 +52,8 @@ class Transaction(models.Model):
     numero_destinataire = models.CharField(max_length=20)
     date_transfert = models.DateTimeField(auto_now_add=True)
     remarques = models.TextField(blank=True, null=True)
+    is_distribue = models.BooleanField(default=False)
+    distributeur = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL, related_name='transactions_distribuees')
 
     def __str__(self):
         return f"{self.montant_envoye} {self.devise_envoyee} → {self.devise_recue}"

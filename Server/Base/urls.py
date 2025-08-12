@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .views import get_user_data, register_user, LogoutView, create_transaction, list_transactions
+from .views import get_user_data, register_user, LogoutView, create_transaction, list_transactions, TransactionViewSet
 from .views import MyTokenObtainPairView, TransactionListCreateView, TransactionRetrieveUpdateDestroyView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.urls import path,include
 from . import views
+
 
 
 from django.urls import path, include
@@ -14,6 +15,8 @@ from rest_framework_simplejwt.views import TokenRefreshView
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='user')
+# router.register(r'transactions', TransactionViewSet, basename='transaction')
+router.register(r'transactions', TransactionViewSet)
 
 urlpatterns = [
     path('me/', get_user_data, name='user-data'),
@@ -25,5 +28,7 @@ urlpatterns = [
     path('transactions/<int:pk>/', TransactionRetrieveUpdateDestroyView.as_view(), name='transaction-detail'),
     path('transactions/create/', create_transaction, name='create_transaction'),
     path('transactions/list/', list_transactions, name='list_transactions'),
+    path('transactions/<int:pk>/update/', views.update_transaction, name='update_transaction'),
+    path('transactions/<int:pk>/delete/', views.delete_transaction, name='delete_transaction'),
     path('', include(router.urls)), 
 ]
