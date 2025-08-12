@@ -11,13 +11,13 @@ const API_ENDPOINTS = {
   USERS: `${API_BASE_URL}/users/`,
   LIST_USERS: `${API_BASE_URL}/users/`, 
   LOGOUT: `${API_BASE_URL}/logout/`,
-  TRANSACTIONS: `${API_BASE_URL}/transactions/`,           // Pour POST et GET via DRF generic view
-  LIST_TRANSACTIONS: `${API_BASE_URL}/transactions/list/`, // Pour la fonction list_transactions
-  CREATE_TRANSACTION: `${API_BASE_URL}/transactions/create/`, // Si besoin d’un endpoint séparé
-  DISTRIBUER_TRANSACTION: (id) => `${API_BASE_URL}/transactions/${id}/distribuer/`,
-  ANNULER_DISTRIBUTION: (id) => `${API_BASE_URL}/transactions/${id}/annuler_distribution/`,
-  UPDATE_TRANSACTION: (id) => `${API_BASE_URL}/transactions/${id}/update/`,
-  DELETE_TRANSACTION: (id) => `${API_BASE_URL}/transactions/${id}/delete/`,
+  // Transactions
+  TRANSACTIONS: `${API_BASE_URL}/transactions/`,              // GET (list) & POST (create)
+  DISTRIBUER_TRANSACTION: (id) => `${API_BASE_URL}/transactions/${id}/distribuer/`,      // PATCH distribuer
+  ANNULER_DISTRIBUTION: (id) => `${API_BASE_URL}/transactions/${id}/annuler_distribution/`, // PATCH annuler distribution
+  UPDATE_TRANSACTION: (id) => `${API_BASE_URL}/transactions/${id}/`,   // PUT/PATCH update transaction
+  DELETE_TRANSACTION: (id) => `${API_BASE_URL}/transactions/${id}/`,   // DELETE transaction
+
 
 };
 

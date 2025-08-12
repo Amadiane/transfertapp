@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import API_ENDPOINTS from '../../config/apiConfig';
 
-         //Fonction pour récupérer le token JWT depuis le localStorage
-         const getAuthToken = () => {
-         return localStorage.getItem("accessToken");
-        };
+// Fonction pour récupérer le token JWT depuis le localStorage
+const getAuthToken = () => {
+  return localStorage.getItem('accessToken');
+};
 
 const TransactionsLists = () => {
   const [transactions, setTransactions] = useState([]);
@@ -14,7 +14,6 @@ const TransactionsLists = () => {
   const token = getAuthToken();
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
     if (!token) return;
 
     const fetchCurrentUser = async () => {
@@ -47,7 +46,7 @@ const TransactionsLists = () => {
 
     fetchCurrentUser();
     fetchTransactions();
-  }, []);
+  }, [token]);
 
   const handleDistribuer = async (tx) => {
     if (
@@ -55,18 +54,14 @@ const TransactionsLists = () => {
         `Confirmer que le transfert ID ${tx.id} a été remis avec succès ?`
       )
     ) {
-      const token = localStorage.getItem('accessToken');
       try {
-        const res = await fetch(
-          `${API_ENDPOINTS.TRANSACTIONS}/${tx.id}/distribuer/`,
-          {
-            method: 'PATCH',
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json',
-            },
-          }
-        );
+        const res = await fetch(API_ENDPOINTS.DISTRIBUER_TRANSACTION(tx.id), {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
         if (res.ok) {
           const updatedTx = await res.json();
           setTransactions((prev) =>
@@ -84,62 +79,60 @@ const TransactionsLists = () => {
   };
 
   const handleAnnulerDistribution = async (tx) => {
-  if (!window.confirm(`Annuler la distribution du transfert ID ${tx.id} ? Cette action est réservée à l'admin.`))
-    return;
+    if (!window.confirm(`Annuler la distribution du transfert ID ${tx.id} ? Cette action est réservée à l'admin.`))
+      return;
 
-  const token = localStorage.getItem('accessToken');
-
-  // Fonction pour récupérer le cookie CSRF
-  function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-      const cookies = document.cookie.split(';');
-      for (let cookie of cookies) {
-        cookie = cookie.trim();
-        if (cookie.startsWith(name + '=')) {
-          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-          break;
+    // Récupération du token CSRF si nécessaire
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+          cookie = cookie.trim();
+          if (cookie.startsWith(name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
         }
       }
+      return cookieValue;
     }
-    return cookieValue;
-  }
-  const csrftoken = getCookie('csrftoken');
+    const csrftoken = getCookie('csrftoken');
 
-  try {
-    const res = await fetch(API_ENDPOINTS.ANNULER_DISTRIBUTION(tx.id), {
-      method: 'PATCH',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-        'X-CSRFToken': csrftoken,   // ajoute ce header pour CSRF
-      },
-    });
-    if (res.ok) {
-      const updatedTx = await res.json();
-      setTransactions((prev) => prev.map((t) => (t.id === updatedTx.id ? updatedTx : t)));
-      alert('Distribution annulée.');
-    } else {
-      alert('Erreur lors de l\'annulation');
+    try {
+      const res = await fetch(API_ENDPOINTS.ANNULER_DISTRIBUTION(tx.id), {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken,
+        },
+      });
+      if (res.ok) {
+        const updatedTx = await res.json();
+        setTransactions((prev) =>
+          prev.map((t) => (t.id === updatedTx.id ? updatedTx : t))
+        );
+        alert('Distribution annulée.');
+      } else {
+        alert('Erreur lors de l\'annulation');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Erreur réseau ou serveur');
     }
-  } catch (error) {
-    console.error(error);
-    alert('Erreur réseau ou serveur');
-  }
-};
-
-
+  };
 
   const handleDelete = async (id) => {
     if (!window.confirm('Confirmer la suppression du transfert ?')) return;
-    const token = localStorage.getItem('accessToken');
+
     try {
-      const res = await fetch(`${API_ENDPOINTS.TRANSACTIONS}${id}/delete/`, {
+      const res = await fetch(API_ENDPOINTS.DELETE_TRANSACTION(id), {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.ok) {
-        setTransactions(transactions.filter((tx) => tx.id !== id));
+        setTransactions((prev) => prev.filter((tx) => tx.id !== id));
       } else {
         alert('Erreur lors de la suppression');
       }
@@ -155,10 +148,7 @@ const TransactionsLists = () => {
       devise_envoyee: tx.devise_envoyee || '',
       montant_envoye: tx.montant_envoye || '',
       pourcentage_gain: tx.pourcentage_gain || '',
-      montant_converti: tx.montant_converti || '',
       devise_recue: tx.devise_recue || '',
-      montant_remis: tx.montant_remis || '',
-      gain_transfert: tx.gain_transfert || '',
       beneficiaire_nom: tx.beneficiaire_nom || '',
       numero_destinataire: tx.numero_destinataire || '',
       date_transfert: tx.date_transfert ? tx.date_transfert.slice(0, 16) : '',
@@ -172,24 +162,18 @@ const TransactionsLists = () => {
   };
 
   const submitEdit = async () => {
-    const token = localStorage.getItem('accessToken');
-    const payload = {
-      ...editFormData,
-      date_transfert: new Date(editFormData.date_transfert).toISOString(),
-    };
+    const payload = { ...editFormData };
+    // On peut choisir d'envoyer uniquement les champs modifiables et valides
 
     try {
-      const res = await fetch(
-        `${API_ENDPOINTS.TRANSACTIONS}${editingTx.id}/update/`,
-        {
-          method: 'PATCH',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+      const res = await fetch(API_ENDPOINTS.UPDATE_TRANSACTION(editingTx.id), {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
       if (res.ok) {
         const updatedTx = await res.json();
         setTransactions((prev) =>
@@ -221,55 +205,16 @@ const TransactionsLists = () => {
             borderRadius: 6,
           }}
         >
-          <p>
-            <strong>ID :</strong> {tx.id}
-          </p>
-          <p>
-            <strong>Envoyé par (Agent) :</strong> {tx.sender?.username} (
-            {tx.sender?.email})
-          </p>
-          <p>
-            <strong>Ville :</strong> {tx.sender?.ville}
-          </p>
-          {currentUser?.role === 'admin' && (
-            <p>
-              <strong>Rôle :</strong> {tx.sender?.role}
-            </p>
-          )}
-          <p>
-            <strong>Devise envoyée :</strong> {tx.devise_envoyee}
-          </p>
-          <p>
-            <strong>Montant envoyé :</strong> {tx.montant_envoye}
-          </p>
-          <p>
-            <strong>Pourcentage de gain :</strong> {tx.pourcentage_gain} %
-          </p>
-          <p>
-            <strong>Montant converti :</strong> {tx.montant_converti}
-          </p>
-          <p>
-            <strong>Devise reçue :</strong> {tx.devise_recue}
-          </p>
-          <p>
-            <strong>Montant remis :</strong> {tx.montant_remis}
-          </p>
-          <p>
-            <strong>Gain sur transfert :</strong> {tx.gain_transfert}
-          </p>
-          <p>
-            <strong>Nom du bénéficiaire :</strong> {tx.beneficiaire_nom}
-          </p>
-          <p>
-            <strong>Numéro destinataire :</strong> {tx.numero_destinataire}
-          </p>
-          <p>
-            <strong>Date du transfert :</strong>{' '}
-            {new Date(tx.date_transfert).toLocaleString()}
-          </p>
-          <p>
-            <strong>Remarques :</strong> {tx.remarques || 'Aucune'}
-          </p>
+          <p><strong>ID :</strong> {tx.id}</p>
+          <p><strong>Envoyé par :</strong> {tx.sender?.username} ({tx.sender?.email})</p>
+          <p><strong>Devise envoyée :</strong> {tx.devise_envoyee}</p>
+          <p><strong>Montant envoyé :</strong> {tx.montant_envoye}</p>
+          <p><strong>Pourcentage de gain :</strong> {tx.pourcentage_gain} %</p>
+          <p><strong>Devise reçue :</strong> {tx.devise_recue}</p>
+          <p><strong>Nom bénéficiaire :</strong> {tx.beneficiaire_nom}</p>
+          <p><strong>Numéro destinataire :</strong> {tx.numero_destinataire}</p>
+          <p><strong>Date transfert :</strong> {new Date(tx.date_transfert).toLocaleString()}</p>
+          <p><strong>Remarques :</strong> {tx.remarques || 'Aucune'}</p>
 
           <p>
             <strong>Statut :</strong>{' '}
@@ -304,7 +249,6 @@ const TransactionsLists = () => {
                   cursor: 'pointer',
                   padding: '6px 12px',
                 }}
-                disabled={tx.is_distribue}
               >
                 Distribuer
               </button>
@@ -358,8 +302,8 @@ const TransactionsLists = () => {
               name="devise_envoyee"
               value={editFormData.devise_envoyee}
               onChange={handleEditChange}
-              style={{ width: '100%', marginBottom: 10 }}
               disabled={editingTx.is_distribue && currentUser?.role !== 'admin'}
+              style={{ width: '100%', marginBottom: 10 }}
             />
           </label>
 
@@ -371,8 +315,8 @@ const TransactionsLists = () => {
               name="montant_envoye"
               value={editFormData.montant_envoye}
               onChange={handleEditChange}
-              style={{ width: '100%', marginBottom: 10 }}
               disabled={editingTx.is_distribue && currentUser?.role !== 'admin'}
+              style={{ width: '100%', marginBottom: 10 }}
             />
           </label>
 
@@ -384,21 +328,8 @@ const TransactionsLists = () => {
               name="pourcentage_gain"
               value={editFormData.pourcentage_gain}
               onChange={handleEditChange}
-              style={{ width: '100%', marginBottom: 10 }}
               disabled={editingTx.is_distribue && currentUser?.role !== 'admin'}
-            />
-          </label>
-
-          <label>
-            Montant converti :
-            <input
-              type="number"
-              step="0.01"
-              name="montant_converti"
-              value={editFormData.montant_converti}
-              onChange={handleEditChange}
               style={{ width: '100%', marginBottom: 10 }}
-              disabled={editingTx.is_distribue && currentUser?.role !== 'admin'}
             />
           </label>
 
@@ -409,34 +340,8 @@ const TransactionsLists = () => {
               name="devise_recue"
               value={editFormData.devise_recue}
               onChange={handleEditChange}
-              style={{ width: '100%', marginBottom: 10 }}
               disabled={editingTx.is_distribue && currentUser?.role !== 'admin'}
-            />
-          </label>
-
-          <label>
-            Montant remis :
-            <input
-              type="number"
-              step="0.01"
-              name="montant_remis"
-              value={editFormData.montant_remis}
-              onChange={handleEditChange}
               style={{ width: '100%', marginBottom: 10 }}
-              disabled={editingTx.is_distribue && currentUser?.role !== 'admin'}
-            />
-          </label>
-
-          <label>
-            Gain sur transfert :
-            <input
-              type="number"
-              step="0.01"
-              name="gain_transfert"
-              value={editFormData.gain_transfert}
-              onChange={handleEditChange}
-              style={{ width: '100%', marginBottom: 10 }}
-              disabled={editingTx.is_distribue && currentUser?.role !== 'admin'}
             />
           </label>
 
@@ -447,8 +352,8 @@ const TransactionsLists = () => {
               name="beneficiaire_nom"
               value={editFormData.beneficiaire_nom}
               onChange={handleEditChange}
-              style={{ width: '100%', marginBottom: 10 }}
               disabled={editingTx.is_distribue && currentUser?.role !== 'admin'}
+              style={{ width: '100%', marginBottom: 10 }}
             />
           </label>
 
@@ -459,8 +364,8 @@ const TransactionsLists = () => {
               name="numero_destinataire"
               value={editFormData.numero_destinataire}
               onChange={handleEditChange}
-              style={{ width: '100%', marginBottom: 10 }}
               disabled={editingTx.is_distribue && currentUser?.role !== 'admin'}
+              style={{ width: '100%', marginBottom: 10 }}
             />
           </label>
 
@@ -471,8 +376,8 @@ const TransactionsLists = () => {
               name="date_transfert"
               value={editFormData.date_transfert}
               onChange={handleEditChange}
-              style={{ width: '100%', marginBottom: 10 }}
               disabled={editingTx.is_distribue && currentUser?.role !== 'admin'}
+              style={{ width: '100%', marginBottom: 10 }}
             />
           </label>
 
@@ -482,8 +387,8 @@ const TransactionsLists = () => {
               name="remarques"
               value={editFormData.remarques}
               onChange={handleEditChange}
-              style={{ width: '100%', height: 60, marginBottom: 10 }}
               disabled={editingTx.is_distribue && currentUser?.role !== 'admin'}
+              style={{ width: '100%', height: 60, marginBottom: 10 }}
             />
           </label>
 
@@ -505,116 +410,3 @@ const TransactionsLists = () => {
 };
 
 export default TransactionsLists;
-
-
-
-
-
-
-
-
-
-
-// # // TransactionsList.jsx
-// # import React, { useEffect, useState } from "react";
-// # import API_ENDPOINTS from '../../config/apiConfig';
-
-// # // Fonction pour récupérer le token JWT depuis le localStorage
-// #   const getAuthToken = () => {
-// #   return localStorage.getItem("accessToken");
-// #   };
-
-// # export default function TransactionsLists() {
-// #   const [transactions, setTransactions] = useState([]);
-// #   const token = getAuthToken();
-
-  
-
-// #   // Charger la liste au montage
-// #   useEffect(() => {
-// #     fetch(API_ENDPOINTS.LIST_TRANSACTIONS, {
-// #       headers: {
-// #         "Authorization": Bearer ${token},
-// #       },
-// #     })
-// #       .then((res) => res.json())
-// #       .then((data) => setTransactions(data))
-// #       .catch((err) => console.error("Erreur chargement transactions :", err));
-// #   }, [token]);
-
-// #   // Fonction de distribution avec logs détaillés
-// #   const distribuerTransaction = async (id) => {
-// #     const url = ${API_ENDPOINTS.TRANSACTIONS}${id}/distribuer/;
-
-// #     console.log("📡 Envoi requête DISTRIBUER vers :", url);
-// #     console.log("🔑 Token utilisé :", token);
-
-// #     try {
-// #       const response = await fetch(url, {
-// #         method: "POST",
-// #         headers: {
-// #           "Authorization": Bearer ${token},
-// #           "Content-Type": "application/json",
-// #         },
-// #       });
-
-// #       console.log("📥 Statut HTTP :", response.status);
-// #       console.log("📥 Headers réponse :", Object.fromEntries(response.headers.entries()));
-
-// #       const contentType = response.headers.get("content-type");
-// #       let responseBody;
-
-// #       if (contentType && contentType.includes("application/json")) {
-// #         responseBody = await response.json();
-// #       } else {
-// #         responseBody = await response.text();
-// #       }
-
-// #       console.log("📥 Corps de la réponse :", responseBody);
-
-// #       if (!response.ok) {
-// #         alert(Erreur ${response.status} : ${JSON.stringify(responseBody)});
-// #         return;
-// #       }
-
-// #       alert("✅ Transaction distribuée avec succès !");
-// #     } catch (err) {
-// #       console.error("💥 Erreur réseau ou fetch :", err);
-// #       alert("Impossible de contacter le serveur !");
-// #     }
-// #   };
-
-// #   return (
-// #     <div>
-// #       <h2>📋 Liste des transactions</h2>
-// #       <table>
-// #         <thead>
-// #           <tr>
-// #             <th>ID</th>
-// #             <th>Bénéficiaire</th>
-// #             <th>Montant</th>
-// #             <th>Distribué</th>
-// #             <th>Action</th>
-// #           </tr>
-// #         </thead>
-// #         <tbody>
-// #           {transactions.map((t) => (
-// #             <tr key={t.id}>
-// #               <td>{t.id}</td>
-// #               <td>{t.beneficiaire_nom}</td>
-// #               <td>{t.montant_envoye} {t.devise_envoyee}</td>
-// #               <td>{t.is_distribue ? "✅" : "❌"}</td>
-// #               <td>
-// #                 {!t.is_distribue && (
-// #                   <button onClick={() => distribuerTransaction(t.id)}>
-// #                     Distribuer
-// #                   </button>
-// #                 )}
-// #               </td>
-// #             </tr>
-// #           ))}
-// #         </tbody>
-// #       </table>
-// #     </div>
-// #   );
-// # }

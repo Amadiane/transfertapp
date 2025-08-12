@@ -55,7 +55,8 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'email', 'ville', 'role']
 
 class TransactionSerializer(serializers.ModelSerializer):
-    sender = UserSerializer(read_only=True)  # Embedding full sender info
+    sender = UserSerializer(read_only=True)
+    distributeur = UserSerializer(read_only=True)
 
     class Meta:
         model = Transaction
