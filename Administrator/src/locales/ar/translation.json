@@ -19,7 +19,6 @@
   "secure_admin_interface": "واجهة إدارة آمنة",
   "not_specified": "غير محدد",
 
-  
   "register_new_employee": "تسجيل موظف جديد",
   "username": "اسم المستخدم",
   "email": "البريد الإلكتروني",
@@ -33,7 +32,38 @@
   "employee_registered_success": "تم تسجيل الموظف بنجاح!",
   "token_missing": "الرمز مفقود",
   "session_expired": "انتهت الجلسة، يرجى تسجيل الدخول مرة أخرى.",
-  "token_refresh_failed": "غير قادر على تحديث الرمز"
+  "token_refresh_failed": "غير قادر على تحديث الرمز",
 
-
+  "send_transfer": {
+    "title": "إرسال تحويل",
+    "subtitle": "املأ المعلومات أدناه لإرسال الأموال بسرعة وأمان.",
+    "devise_envoyee": "العملة المرسلة",
+    "devise_envoyee_placeholder": "اختر العملة المرسلة",
+    "montant_envoye": "المبلغ المرسل",
+    "montant_envoye_placeholder": "أدخل المبلغ الذي تريد إرساله",
+    "pourcentage_gain": "نسبة الربح",
+    "pourcentage_gain_placeholder": "أدخل نسبة الربح",
+    "devise_recue": "العملة المستلمة",
+    "devise_recue_placeholder": "اختر العملة المستلمة",
+    "numero_destinataire": "رقم المستلم",
+    "numero_destinataire_placeholder": "أدخل رقم المستلم",
+    "beneficiaire_nom": "اسم المستفيد",
+    "beneficiaire_nom_placeholder": "أدخل اسم المستفيد",
+    "remarques": "ملاحظات",
+    "remarques_placeholder": "أضف ملاحظات أو معلومات إضافية هنا...",
+    "choose_option": "اختر خيارًا",
+    "send_button": "إرسال",
+    "processing": "جارٍ المعالجة...",
+    "error_general": "حدث خطأ، يرجى المحاولة مرة أخرى.",
+    "secure_transaction": "معاملة آمنة",
+    "instant_processing": "معالجة فورية",
+    "cancel_button": "إلغاء"
+  },
+  "currencies": {
+    "USD": "دولار أمريكي",
+    "EUR": "يورو",
+    "CAD": "دولار كندي",
+    "SAR": "ريال سعودي",
+    "GNF": "فرنك غيني"
+  }
 }

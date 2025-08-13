@@ -6,7 +6,7 @@
   "admin_dashboard_subtitle": "Gérez votre plateforme en toute simplicité",
   "received_transfers": "Transferts reçus",
   "activity_reports": "Rapports d'activités",
-  "profile": "Profile",
+  "profile": "Profil",
   "profile_subtitle": "Informations du compte",
   "username_label": "Nom d'utilisateur",
   "email_label": "Email",
@@ -19,7 +19,6 @@
   "secure_admin_interface": "Interface d'administration sécurisée",
   "not_specified": "Non spécifié",
 
-  
   "register_new_employee": "Enregistrer un nouvel employé",
   "username": "Nom d'utilisateur",
   "email": "Email",
@@ -33,7 +32,39 @@
   "employee_registered_success": "Employé enregistré avec succès !",
   "token_missing": "Token manquant",
   "session_expired": "Session expirée, veuillez vous reconnecter.",
-  "token_refresh_failed": "Impossible de rafraîchir le token"
+  "token_refresh_failed": "Impossible de rafraîchir le token",
 
+  "send_transfer": {
+    "title": "Envoyer un transfert",
+    "subtitle": "Remplissez les informations ci-dessous pour envoyer de l'argent rapidement et en toute sécurité.",
+    "devise_envoyee": "Devise envoyée",
+    "devise_envoyee_placeholder": "Choisissez la devise envoyée",
+    "montant_envoye": "Montant envoyé",
+    "montant_envoye_placeholder": "Entrez le montant à envoyer",
+    "pourcentage_gain": "Pourcentage de gain",
+    "pourcentage_gain_placeholder": "Entrez le pourcentage de gain",
+    "devise_recue": "Devise reçue",
+    "devise_recue_placeholder": "Choisissez la devise reçue",
+    "numero_destinataire": "Numéro du destinataire",
+    "numero_destinataire_placeholder": "Entrez le numéro du bénéficiaire",
+    "beneficiaire_nom": "Nom du bénéficiaire",
+    "beneficiaire_nom_placeholder": "Entrez le nom du bénéficiaire",
+    "remarques": "Remarques",
+    "remarques_placeholder": "Ajoutez des remarques ou informations supplémentaires ici...",
+    "choose_option": "Choisissez une option",
+    "send_button": "Envoyer",
+    "processing": "Traitement...",
+    "error_general": "Une erreur est survenue, veuillez réessayer.",
+    "secure_transaction": "Transaction sécurisée",
+    "instant_processing": "Traitement instantané",
+    "cancel_button": "Annuler"
+  },
 
+  "currencies": {
+    "USD": "Dollar Américain",
+    "EUR": "Euro",
+    "CAD": "Dollar Canadien",
+    "SAR": "Riyal Saoudien",
+    "GNF": "Franc Guinéen"
+  }
 }

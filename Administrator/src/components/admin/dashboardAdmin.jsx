@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import LanguageSelector from '../../LanguageSelector';
 import API_ENDPOINTS from '../../config/apiConfig';
 
+
 const DashboardAdmin = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -33,10 +34,10 @@ const DashboardAdmin = () => {
 
   // VOTRE LOGIQUE DE NAVIGATION ORIGINALE avec traductions
   const buttons = [
+    { path: '/sendTransfert', label: t('make_transfer'), icon: '💸', bgColor: '#f59e0b' },
     { path: '/transactionsLists', label: t('received_transfers'), icon: '💰', bgColor: '#3b82f6' },
     { path: '/rapportTransactions', label: t('activity_reports'), icon: '📊', bgColor: '#10b981' },
     { path: '/listeEmploye', label: t('register_employee'), icon: '👥', bgColor: '#8b5cf6' },
-    { path: '/sendTransfert', label: t('make_transfer'), icon: '💸', bgColor: '#f59e0b' },
     { path: '/logout', label: t('logout'), icon: '🚪', bgColor: '#ef4444' },
   ];
 

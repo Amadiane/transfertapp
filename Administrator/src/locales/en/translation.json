@@ -19,8 +19,6 @@
   "secure_admin_interface": "Secure Admin Interface",
   "not_specified": "Not Specified",
 
-
-  
   "register_new_employee": "Register a New Employee",
   "username": "Username",
   "email": "Email",
@@ -34,7 +32,39 @@
   "employee_registered_success": "Employee successfully registered!",
   "token_missing": "Missing token",
   "session_expired": "Session expired, please log in again.",
-  "token_refresh_failed": "Unable to refresh token"
+  "token_refresh_failed": "Unable to refresh token",
 
+   "send_transfer": {
+    "title": "Send a Transfer",
+    "subtitle": "Fill in the information below to send money quickly and securely.",
+    "devise_envoyee": "Sent Currency",
+    "devise_envoyee_placeholder": "Choose sent currency",
+    "montant_envoye": "Amount Sent",
+    "montant_envoye_placeholder": "Enter the amount to send",
+    "pourcentage_gain": "Gain Percentage",
+    "pourcentage_gain_placeholder": "Enter the gain percentage",
+    "devise_recue": "Received Currency",
+    "devise_recue_placeholder": "Choose received currency",
+    "numero_destinataire": "Recipient's Number",
+    "numero_destinataire_placeholder": "Enter the recipient's number",
+    "beneficiaire_nom": "Beneficiary Name",
+    "beneficiaire_nom_placeholder": "Enter the beneficiary's name",
+    "remarques": "Remarks",
+    "remarques_placeholder": "Add remarks or additional information here...",
+    "choose_option": "Choose an option",
+    "send_button": "Send",
+    "processing": "Processing...",
+    "error_general": "An error occurred, please try again.",
+    "secure_transaction": "Secure Transaction",
+    "instant_processing": "Instant Processing",
+     "cancel_button": "Cancel"
+  },
 
+  "currencies": {
+    "USD": "US Dollar",
+    "EUR": "Euro",
+    "CAD": "Canadian Dollar",
+    "SAR": "Saudi Riyal",
+    "GNF": "Guinean Franc"
+  }
 }
