@@ -3,6 +3,22 @@
   "register_employee": "Manage Employee",
   "make_transfer": "Transfer",
   "logout": "Logout",
+  "admin_dashboard_subtitle": "Manage your platform with ease",
+  "received_transfers": "Received Transfers",
+  "activity_reports": "Activity Reports",
+  "profile": "Profile",
+  "profile_subtitle": "Account Information",
+  "username_label": "Username",
+  "email_label": "Email",
+  "city_label": "City",
+  "city_not_provided": "Not provided",
+  "role_label": "Role",
+  "admin_footer_badge": "Secure Administration Interface",
+  "platform_management_subtitle": "Platform management subtitle",
+  "account_information": "Account information",
+  "secure_admin_interface": "Secure Admin Interface",
+  "not_specified": "Not Specified",
+
 
   
   "register_new_employee": "Register a New Employee",
