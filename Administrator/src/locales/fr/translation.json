@@ -1,6 +1,6 @@
 {
   "admin_dashboard": "Tableau de bord Administrateur",
-  "register_employee": "Gérer employé",
+  "register_employeee": "Gérer employé",
   "make_transfer": "Transfert",
   "logout": "Déconnexion",
   "admin_dashboard_subtitle": "Gérez votre plateforme en toute simplicité",
@@ -124,6 +124,50 @@
     }
   },
 
+  
+  "employees": {
+    "title": "Liste des employés",
+    "subtitle": "Gérez et consultez les informations de vos employés",
+    "loading": "Chargement en cours...",
+    "noResults": "Aucun employé trouvé",
+    "noResultsDesc": "Essayez d'ajuster votre recherche ou ajoutez un nouvel employé.",
+    "addButton": "Ajouter un employé",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer cet employé ?",
+    "search": {
+      "name": "Nom",
+      "role": "Rôle",
+      "placeholder": "Rechercher par nom, email ou ville",
+      "button": "Rechercher"
+    },
+    "roles": {
+      "all": "Tous",
+      "admin": "Administrateur",
+      "employee": "Employé"
+    },
+    "table": {
+      "name": "Nom",
+      "email": "Email",
+      "city": "Ville",
+      "role": "Rôle",
+      "actions": "Actions"
+    },
+    "actions": {
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "viewDashboard": "Voir le tableau de bord",
+      "save": "Enregistrer",
+      "cancel": "Annuler"
+    }
+  },
+  "buttons": {
+    "back": "Retour"
+  },
+  "language": {
+    "select": "Choisir la langue"
+  },
+
+
+
   "currencies": {
     "USD": "Dollar Américain",
     "EUR": "Euro",
@@ -131,6 +175,40 @@
     "SAR": "Riyal Saoudien",
     "GNF": "Franc Guinéen"
   },
+
+  
+  "register_employee": {
+    "title": "Enregistrer un employé",
+    "subtitle": "Veuillez remplir le formulaire pour créer un compte employé",
+    "back_button": "Retour",
+    "language_select": "Langue",
+    "username": "Nom d'utilisateur",
+    "username_placeholder": "Entrez le nom d'utilisateur",
+    "email": "Email",
+    "email_placeholder": "Entrez l'adresse email",
+    "password": "Mot de passe",
+    "password_placeholder": "Entrez le mot de passe",
+    "city": "Ville",
+    "city_placeholder": "Entrez la ville",
+    "role": "Rôle",
+    "choose_role": "Choisissez un rôle",
+    "administrator": "Administrateur",
+    "employee": "Employé",
+    "cancel_button": "Annuler",
+    "register_button": "Enregistrer",
+    "registering": "Enregistrement...",
+    "secure_registration": "Inscription sécurisée",
+    "instant_access": "Accès instantané",
+    "success_message": "Employé enregistré avec succès !",
+    "token_missing": "Token manquant",
+    "session_expired": "Session expirée, veuillez vous reconnecter",
+    "token_refresh_failed": "Échec du rafraîchissement du token",
+    "list_employees": "Liste des employés"
+  
+},
+
+
+
 
   "title.transfersSummary": "Résumé des transferts",
   "subtitle.completeManagement": "Gestion complète",

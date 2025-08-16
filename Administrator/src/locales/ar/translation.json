@@ -1,17 +1,17 @@
 {
-  "admin_dashboard": "لوحة تحكم المشرف",
-  "register_employee": "إدارة الموظف",
+  "admin_dashboard": "لوحة تحكم المدير",
+  "register_employeee": "إدارة الموظف",
   "make_transfer": "تحويل",
   "logout": "تسجيل الخروج",
-  "admin_dashboard_subtitle": "قم بإدارة منصتك بسهولة",
+  "admin_dashboard_subtitle": "إدارة منصتك بسهولة",
   "received_transfers": "التحويلات المستلمة",
-  "activity_reports": "تقارير النشاط",
+  "activity_reports": "تقارير الأنشطة",
   "profile": "الملف الشخصي",
   "profile_subtitle": "معلومات الحساب",
   "username_label": "اسم المستخدم",
   "email_label": "البريد الإلكتروني",
   "city_label": "المدينة",
-  "city_not_provided": "غير محددة",
+  "city_not_provided": "غير مذكورة",
   "role_label": "الدور",
   "admin_footer_badge": "واجهة إدارة آمنة",
   "platform_management_subtitle": "إدارة المنصة",
@@ -25,18 +25,19 @@
   "password": "كلمة المرور",
   "city": "المدينة",
   "choose_role": "-- اختر الدور --",
-  "administrator": "مشرف",
+  "administrator": "مدير",
   "employee": "موظف",
   "register": "تسجيل",
-  "registering": "جارٍ التسجيل...",
+  "registering": "جاري التسجيل...",
   "employee_registered_success": "تم تسجيل الموظف بنجاح!",
   "token_missing": "الرمز مفقود",
   "session_expired": "انتهت الجلسة، يرجى تسجيل الدخول مرة أخرى.",
   "token_refresh_failed": "تعذر تحديث الرمز",
+  "list_employees": "قائمة الموظفين",
 
   "send_transfer": {
     "title": "إرسال تحويل",
-    "subtitle": "املأ المعلومات أدناه لإرسال الأموال بسرعة وأمان.",
+    "subtitle": "املأ البيانات أدناه لإرسال الأموال بسرعة وأمان.",
     "devise_envoyee": "العملة المرسلة",
     "devise_envoyee_placeholder": "اختر العملة المرسلة",
     "montant_envoye": "المبلغ المرسل",
@@ -50,10 +51,10 @@
     "beneficiaire_nom": "اسم المستفيد",
     "beneficiaire_nom_placeholder": "أدخل اسم المستفيد",
     "remarques": "ملاحظات",
-    "remarques_placeholder": "أضف أي ملاحظات أو معلومات إضافية هنا...",
+    "remarques_placeholder": "أضف ملاحظات أو معلومات إضافية هنا...",
     "choose_option": "اختر خيارًا",
     "send_button": "إرسال",
-    "processing": "جارٍ المعالجة...",
+    "processing": "جاري المعالجة...",
     "error_general": "حدث خطأ، يرجى المحاولة مرة أخرى.",
     "secure_transaction": "معاملة آمنة",
     "instant_processing": "معالجة فورية",
@@ -66,12 +67,12 @@
     "amount": "المبلغ",
     "currency": "العملة",
     "status": "الحالة",
-    "actions": "الإجراءات"
+    "actions": "إجراءات"
   },
 
   "labels": {
     "id": "المعرف",
-    "sentBy": "مرسل من",
+    "sentBy": "أُرسل بواسطة",
     "sentCurrency": "العملة المرسلة",
     "amount": "المبلغ",
     "profit": "الربح",
@@ -81,7 +82,7 @@
     "date": "التاريخ",
     "remarks": "ملاحظات",
     "noRemarks": "لا توجد ملاحظات",
-    "distributedBy": "تم التوزيع بواسطة",
+    "distributedBy": "وزع بواسطة",
     "unknown": "غير معروف",
     "sentAmount": "المبلغ المرسل",
     "profitPercentage": "نسبة الربح",
@@ -103,13 +104,13 @@
 
   "report": {
     "title": "تقرير المعاملات",
-    "subtitle": "تحليل مفصل للمعاملات",
+    "subtitle": "تحليل مفصل للمعاملات المنجزة",
     "period": {
       "label": "الفترة",
-      "day": "يوم",
-      "week": "أسبوع",
-      "month": "شهر",
-      "year": "سنة"
+      "day": "اليوم",
+      "week": "الأسبوع",
+      "month": "الشهر",
+      "year": "السنة"
     },
     "search": {
       "period": "فترة البحث",
@@ -118,33 +119,100 @@
     },
     "stats": {
       "totalTransactions": "إجمالي المعاملات",
-      "totalSent": "إجمالي المبالغ المرسلة",
-      "totalReceived": "إجمالي المبالغ المستلمة",
-      "totalProfit": "إجمالي الأرباح"
+      "totalSent": "إجمالي المرسل",
+      "totalReceived": "إجمالي المستلم",
+      "totalProfit": "إجمالي الربح"
     }
   },
 
+  "employees": {
+    "title": "قائمة الموظفين",
+    "subtitle": "إدارة وعرض معلومات موظفيك",
+    "loading": "جاري التحميل...",
+    "noResults": "لم يتم العثور على موظف",
+    "noResultsDesc": "حاول تعديل البحث أو أضف موظفًا جديدًا.",
+    "addButton": "إضافة موظف",
+    "confirmDelete": "هل أنت متأكد أنك تريد حذف هذا الموظف؟",
+    "search": {
+      "name": "الاسم",
+      "role": "الدور",
+      "placeholder": "ابحث بالاسم أو البريد الإلكتروني أو المدينة",
+      "button": "بحث"
+    },
+    "roles": {
+      "all": "الكل",
+      "admin": "مدير",
+      "employee": "موظف"
+    },
+    "table": {
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "city": "المدينة",
+      "role": "الدور",
+      "actions": "إجراءات"
+    },
+    "actions": {
+      "edit": "تعديل",
+      "delete": "حذف",
+      "viewDashboard": "عرض لوحة التحكم",
+      "save": "حفظ",
+      "cancel": "إلغاء"
+    }
+  },
+  "buttons": {
+    "back": "رجوع",
+    "cancel": "إلغاء",
+    "confirm": "تأكيد",
+    "distribute": "توزيع",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "loading": "جاري التحميل...",
+    "save": "حفظ"
+  },
+  "language": {
+    "select": "اختر اللغة"
+  },
+
   "currencies": {
-    "USD": "الدولار الأمريكي",
-    "EUR": "اليورو",
-    "CAD": "الدولار الكندي",
-    "SAR": "الريال السعودي",
-    "GNF": "الفرنك الغيني"
+    "USD": "دولار أمريكي",
+    "EUR": "يورو",
+    "CAD": "دولار كندي",
+    "SAR": "ريال سعودي",
+    "GNF": "فرنك غيني"
+  },
+
+  "register_employee": {
+    "title": "تسجيل موظف",
+    "subtitle": "يرجى ملء النموذج لإنشاء حساب موظف",
+    "back_button": "رجوع",
+    "language_select": "اللغة",
+    "username": "اسم المستخدم",
+    "username_placeholder": "أدخل اسم المستخدم",
+    "email": "البريد الإلكتروني",
+    "email_placeholder": "أدخل البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "password_placeholder": "أدخل كلمة المرور",
+    "city": "المدينة",
+    "city_placeholder": "أدخل المدينة",
+    "role": "الدور",
+    "choose_role": "اختر الدور",
+    "administrator": "مسؤول",
+    "employee": "موظف",
+    "cancel_button": "إلغاء",
+    "register_button": "تسجيل",
+    "registering": "جاري التسجيل...",
+    "secure_registration": "تسجيل آمن",
+    "instant_access": "وصول فوري",
+    "success_message": "تم تسجيل الموظف بنجاح!",
+    "token_missing": "الرمز مفقود",
+    "session_expired": "انتهت الجلسة، يرجى تسجيل الدخول مرة أخرى",
+    "token_refresh_failed": "فشل تحديث الرمز"
   },
 
   "title.transfersSummary": "ملخص التحويلات",
-  "subtitle.completeManagement": "إدارة كاملة",
+  "subtitle.completeManagement": "إدارة شاملة",
   "confirm.title": "تأكيد",
   "noTransactions.title": "لا توجد معاملات",
-  "noTransactions.subtitle": "لا توجد أي معاملات في الوقت الحالي.",
-  "modal.editTitle": "تعديل المعاملة",
-  "buttons.back": "رجوع",
-  "buttons.cancel": "إلغاء",
-  "buttons.confirm": "تأكيد",
-  "buttons.distribute": "توزيع",
-  "buttons.edit": "تعديل",
-  "buttons.delete": "حذف",
-  "buttons.loading": "جارٍ التحميل...",
-  "buttons.save": "حفظ",
-  "language.select": "اختر اللغة"
+  "noTransactions.subtitle": "لا توجد معاملات في الوقت الحالي.",
+  "modal.editTitle": "تعديل المعاملة"
 }

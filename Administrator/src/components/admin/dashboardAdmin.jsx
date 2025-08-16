@@ -37,7 +37,7 @@ const DashboardAdmin = () => {
     { path: '/sendTransfert', label: t('make_transfer'), icon: '💸', bgColor: '#f59e0b' },
     { path: '/transactionsLists', label: t('received_transfers'), icon: '💰', bgColor: '#3b82f6' },
     { path: '/rapportTransactions', label: t('activity_reports'), icon: '📊', bgColor: '#10b981' },
-    { path: '/listeEmploye', label: t('register_employee'), icon: '👥', bgColor: '#8b5cf6' },
+    { path: '/listeEmploye', label: t('register_employeee'), icon: '👥', bgColor: '#8b5cf6' },
     { path: '/logout', label: t('logout'), icon: '🚪', bgColor: '#ef4444' },
   ];
 

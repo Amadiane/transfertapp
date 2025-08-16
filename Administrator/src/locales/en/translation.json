@@ -1,9 +1,9 @@
 {
   "admin_dashboard": "Admin Dashboard",
-  "register_employee": "Manage Employee",
+  "register_employeee": "Manage Employee",
   "make_transfer": "Transfer",
   "logout": "Logout",
-  "admin_dashboard_subtitle": "Manage your platform with ease",
+  "admin_dashboard_subtitle": "Easily manage your platform",
   "received_transfers": "Received Transfers",
   "activity_reports": "Activity Reports",
   "profile": "Profile",
@@ -19,7 +19,7 @@
   "secure_admin_interface": "Secure Admin Interface",
   "not_specified": "Not specified",
 
-  "register_new_employee": "Register a New Employee",
+  "register_new_employee": "Register New Employee",
   "username": "Username",
   "email": "Email",
   "password": "Password",
@@ -29,28 +29,28 @@
   "employee": "Employee",
   "register": "Register",
   "registering": "Registering...",
-  "employee_registered_success": "Employee registered successfully!",
+  "employee_registered_success": "Employee successfully registered!",
   "token_missing": "Token missing",
   "session_expired": "Session expired, please log in again.",
   "token_refresh_failed": "Unable to refresh token",
 
   "send_transfer": {
-    "title": "Send a Transfer",
-    "subtitle": "Fill in the information below to send money quickly and securely.",
+    "title": "Send Transfer",
+    "subtitle": "Fill in the details below to send money quickly and securely.",
     "devise_envoyee": "Sent Currency",
-    "devise_envoyee_placeholder": "Select sent currency",
+    "devise_envoyee_placeholder": "Choose sent currency",
     "montant_envoye": "Sent Amount",
     "montant_envoye_placeholder": "Enter the amount to send",
     "pourcentage_gain": "Profit Percentage",
     "pourcentage_gain_placeholder": "Enter profit percentage",
     "devise_recue": "Received Currency",
-    "devise_recue_placeholder": "Select received currency",
+    "devise_recue_placeholder": "Choose received currency",
     "numero_destinataire": "Recipient Number",
     "numero_destinataire_placeholder": "Enter recipient number",
     "beneficiaire_nom": "Beneficiary Name",
     "beneficiaire_nom_placeholder": "Enter beneficiary name",
     "remarques": "Remarks",
-    "remarques_placeholder": "Add any additional remarks or information here...",
+    "remarques_placeholder": "Add remarks or additional info here...",
     "choose_option": "Choose an option",
     "send_button": "Send",
     "processing": "Processing...",
@@ -58,7 +58,7 @@
     "secure_transaction": "Secure Transaction",
     "instant_processing": "Instant Processing",
     "cancel_button": "Cancel",
-    "transactions_list": "Transaction List",
+    "transactions_list": "Transactions List",
     "distribute_button": "Distribute",
     "distributed_label": "Distributed",
     "pending_label": "Pending",
@@ -71,7 +71,7 @@
 
   "labels": {
     "id": "ID",
-    "sentBy": "Sent By",
+    "sentBy": "Sent by",
     "sentCurrency": "Sent Currency",
     "amount": "Amount",
     "profit": "Profit",
@@ -81,7 +81,7 @@
     "date": "Date",
     "remarks": "Remarks",
     "noRemarks": "No remarks",
-    "distributedBy": "Distributed By",
+    "distributedBy": "Distributed by",
     "unknown": "Unknown",
     "sentAmount": "Sent Amount",
     "profitPercentage": "Profit Percentage",
@@ -91,7 +91,7 @@
 
   "placeholders": {
     "recipientNumber": "Enter recipient number",
-    "currency": "Select currency",
+    "currency": "Choose currency",
     "beneficiaryName": "Enter beneficiary name",
     "remarks": "Add your remarks here..."
   },
@@ -103,7 +103,7 @@
 
   "report": {
     "title": "Transaction Report",
-    "subtitle": "Detailed analysis of transactions",
+    "subtitle": "Detailed analysis of completed transactions",
     "period": {
       "label": "Period",
       "day": "Day",
@@ -118,10 +118,58 @@
     },
     "stats": {
       "totalTransactions": "Total Transactions",
-      "totalSent": "Total Sent Amount",
-      "totalReceived": "Total Received Amount",
+      "totalSent": "Total Sent",
+      "totalReceived": "Total Received",
       "totalProfit": "Total Profit"
     }
+  },
+
+  "employees": {
+    "title": "Employee List",
+    "subtitle": "Manage and view your employees' information",
+    "loading": "Loading...",
+    "noResults": "No employee found",
+    "noResultsDesc": "Try adjusting your search or add a new employee.",
+    "addButton": "Add Employee",
+    "confirmDelete": "Are you sure you want to delete this employee?",
+    "search": {
+      "name": "Name",
+      "role": "Role",
+      "placeholder": "Search by name, email or city",
+      "button": "Search"
+    },
+    "roles": {
+      "all": "All",
+      "admin": "Administrator",
+      "employee": "Employee"
+    },
+    "table": {
+      "name": "Name",
+      "email": "Email",
+      "city": "City",
+      "role": "Role",
+      "actions": "Actions"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "viewDashboard": "View Dashboard",
+      "save": "Save",
+      "cancel": "Cancel"
+    }
+  },
+  "buttons": {
+    "back": "Back",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "distribute": "Distribute",
+    "edit": "Edit",
+    "delete": "Delete",
+    "loading": "Loading...",
+    "save": "Save"
+  },
+  "language": {
+    "select": "Select Language"
   },
 
   "currencies": {
@@ -132,19 +180,39 @@
     "GNF": "Guinean Franc"
   },
 
+  "register_employee": {
+    "title": "Register Employee",
+    "subtitle": "Please fill out the form to create an employee account",
+    "back_button": "Back",
+    "language_select": "Language",
+    "username": "Username",
+    "username_placeholder": "Enter username",
+    "email": "Email",
+    "email_placeholder": "Enter email address",
+    "password": "Password",
+    "password_placeholder": "Enter password",
+    "city": "City",
+    "city_placeholder": "Enter city",
+    "role": "Role",
+    "choose_role": "Choose a role",
+    "administrator": "Administrator",
+    "employee": "Employee",
+    "cancel_button": "Cancel",
+    "register_button": "Register",
+    "registering": "Registering...",
+    "secure_registration": "Secure registration",
+    "instant_access": "Instant access",
+    "success_message": "Employee registered successfully!",
+    "token_missing": "Missing token",
+    "session_expired": "Session expired, please log in again",
+    "token_refresh_failed": "Token refresh failed",
+    "list_employees": "Employee List"
+  },
+
   "title.transfersSummary": "Transfers Summary",
   "subtitle.completeManagement": "Complete Management",
   "confirm.title": "Confirmation",
-  "noTransactions.title": "No Transaction",
+  "noTransactions.title": "No transactions",
   "noTransactions.subtitle": "There are no transactions at the moment.",
-  "modal.editTitle": "Edit Transaction",
-  "buttons.back": "Back",
-  "buttons.cancel": "Cancel",
-  "buttons.confirm": "Confirm",
-  "buttons.distribute": "Distribute",
-  "buttons.edit": "Edit",
-  "buttons.delete": "Delete",
-  "buttons.loading": "Loading...",
-  "buttons.save": "Save",
-  "language.select": "Select Language"
+  "modal.editTitle": "Edit Transaction"
 }
