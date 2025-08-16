@@ -57,8 +57,56 @@
     "error_general": "Une erreur est survenue, veuillez réessayer.",
     "secure_transaction": "Transaction sécurisée",
     "instant_processing": "Traitement instantané",
-    "cancel_button": "Annuler"
+    "cancel_button": "Annuler",
+    "transactions_list": "Liste des transactions",
+    "distribute_button": "Distribuer",
+    "distributed_label": "Distribué",
+    "pending_label": "En attente",
+    "transaction_id": "ID Transaction",
+    "amount": "Montant",
+    "currency": "Devise",
+    "status": "Statut",
+    "actions": "Actions",
+    "report_period_day": "Jour",
+    "report_period_week": "Semaine",
+    "report_period_month": "Mois",
+    "report_period_year": "Année",
+    "report_total_transactions": "Nombre total de transactions",
+    "report_total_amount": "Montant total"
   },
+
+  "labels": {
+    "id": "ID",
+    "sentBy": "Envoyé par",
+    "sentCurrency": "Devise envoyée",
+    "amount": "Montant",
+    "profit": "Profit",
+    "receivedCurrency": "Devise reçue",
+    "beneficiary": "Bénéficiaire",
+    "recipientNumber": "Numéro du destinataire",
+    "date": "Date",
+    "remarks": "Remarques",
+    "noRemarks": "Aucune remarque",
+    "distributedBy": "Distribué par",
+    "unknown": "Inconnu",
+    "sentAmount": "Montant envoyé",
+    "profitPercentage": "Pourcentage de gain",
+    "beneficiaryName": "Nom du bénéficiaire",
+    "transferDate": "Date du transfert"
+  },
+
+  "placeholders": {
+    "recipientNumber": "Entrez le numéro du destinataire",
+    "currency": "Choisissez la devise",
+    "beneficiaryName": "Entrez le nom du bénéficiaire",
+    "remarks": "Ajoutez vos remarques ici..."
+  },
+
+  "status": {
+  "distributed": "Distribué",
+  "pending": "En attente"
+},
+
 
   "currencies": {
     "USD": "Dollar Américain",
@@ -66,5 +114,21 @@
     "CAD": "Dollar Canadien",
     "SAR": "Riyal Saoudien",
     "GNF": "Franc Guinéen"
-  }
+  },
+
+  "title.transfersSummary": "Résumé des transferts",
+  "subtitle.completeManagement": "Gestion complète",
+  "confirm.title": "Confirmation",
+  "noTransactions.title": "Aucune transaction",
+  "noTransactions.subtitle": "Il n'y a aucune transaction pour le moment.",
+  "modal.editTitle": "Modifier la transaction",
+  "buttons.back": "Retour",
+  "buttons.cancel": "Annuler",
+  "buttons.confirm": "Confirmer",
+  "buttons.distribute": "Distribuer",
+  "buttons.edit": "Modifier",
+  "buttons.delete": "Supprimer",
+  "buttons.loading": "Chargement...",
+  "buttons.save": "Sauvegarder",
+  "language.select": "Choisir la langue"
 }
