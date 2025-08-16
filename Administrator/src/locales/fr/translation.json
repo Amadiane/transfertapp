@@ -66,13 +66,7 @@
     "amount": "Montant",
     "currency": "Devise",
     "status": "Statut",
-    "actions": "Actions",
-    "report_period_day": "Jour",
-    "report_period_week": "Semaine",
-    "report_period_month": "Mois",
-    "report_period_year": "Année",
-    "report_total_transactions": "Nombre total de transactions",
-    "report_total_amount": "Montant total"
+    "actions": "Actions"
   },
 
   "labels": {
@@ -103,10 +97,32 @@
   },
 
   "status": {
-  "distributed": "Distribué",
-  "pending": "En attente"
-},
+    "distributed": "Distribué",
+    "pending": "En attente"
+  },
 
+  "report": {
+    "title": "Rapport des transactions",
+    "subtitle": "Analyse détaillée des transactions effectuées",
+    "period": {
+      "label": "Période",
+      "day": "Jour",
+      "week": "Semaine",
+      "month": "Mois",
+      "year": "Année"
+    },
+    "search": {
+      "period": "Période de recherche",
+      "date": "Date de recherche",
+      "button": "Rechercher"
+    },
+    "stats": {
+      "totalTransactions": "Nombre total de transactions",
+      "totalSent": "Montant total envoyé",
+      "totalReceived": "Montant total reçu",
+      "totalProfit": "Profit total"
+    }
+  },
 
   "currencies": {
     "USD": "Dollar Américain",
