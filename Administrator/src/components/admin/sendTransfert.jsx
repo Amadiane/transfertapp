@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import API_ENDPOINTS from '../../config/apiConfig';
+
 
 const DEVISES = [
   { value: 'USD', label: 'Dollar Américain' },
@@ -13,7 +14,7 @@ const DEVISES = [
 ];
 
 const SendTransfert = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
@@ -59,31 +60,20 @@ const SendTransfert = () => {
 
   // Style pour le bouton retour
   const backButtonStyle = {
-    position: 'absolute',
-    top: '2rem',
-    left: '2rem',
-    width: '50px',
-    height: '50px',
-    background: hoveredBtn === 'back'
-      ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-      : 'rgba(255, 255, 255, 0.08)',
+    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%)',
     backdropFilter: 'blur(20px)',
-    borderRadius: '50%',
     border: '1px solid rgba(255, 255, 255, 0.1)',
+    borderRadius: '12px',
+    padding: '0.8rem 1.2rem',
+    color: '#ffffff',
     cursor: 'pointer',
-    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+    transition: 'all 0.3s ease',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    color: '#ffffff',
-    fontSize: '1.2rem',
-    zIndex: 3,
-    boxShadow: hoveredBtn === 'back' 
-      ? '0 15px 35px rgba(102, 126, 234, 0.3)' 
-      : '0 8px 25px rgba(0, 0, 0, 0.1)',
-    transform: hoveredBtn === 'back' ? 'translateY(-2px) scale(1.05)' : 'translateY(0) scale(1)',
+    gap: '0.5rem',
+    fontWeight: '600',
+    fontSize: '0.9rem',
   };
-
   const formContainerStyle = {
     maxWidth: '1000px',
     margin: '2rem auto',
@@ -95,6 +85,10 @@ const SendTransfert = () => {
     padding: '2rem',
     position: 'relative',
     zIndex: 2,
+  };
+
+  const handleGoBack = () => {
+    navigate(-1);
   };
 
   const headerStyle = {
@@ -115,6 +109,29 @@ const SendTransfert = () => {
     marginBottom: '2rem',
     fontWeight: '300',
   };
+
+   const topBarStyle = {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginBottom: '2rem',
+    position: 'relative',
+    zIndex: 1,
+  };
+
+  const backButtonWrapper = {
+  position: 'absolute',
+  top: '1rem',
+  left: '1rem',
+  zIndex: 3,
+  left: i18n.language === "ar" ? "auto" : "20px",
+  right: i18n.language === "ar" ? "20px" : "auto",
+  
+  };
+
+  
+
+  
 
   // Grille CSS responsive
   const formGridStyle = {
@@ -279,8 +296,38 @@ const SendTransfert = () => {
     }
   };
 
+  const languageButtonStyle = (isActive) => ({
+    padding: '0.5rem 1rem',
+    borderRadius: '8px',
+    border: 'none',
+    background: isActive 
+      ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' 
+      : 'transparent',
+    color: '#ffffff',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    fontWeight: '600',
+    fontSize: '0.85rem',
+  });
+
+  const languageSelectorStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.5rem',
+    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%)',
+    backdropFilter: 'blur(20px)',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    borderRadius: '12px',
+    padding: '0.5rem',
+  };
+
+
   const handleBack = () => {
     navigate(-1); // Retour à la page précédente
+  };
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
   };
 
   const handleSubmit = async (e) => {
@@ -289,6 +336,11 @@ const SendTransfert = () => {
 
     setIsLoading(true);
     setErrors({});
+
+
+  
+
+
 
     try {
       const token = localStorage.getItem('accessToken');
@@ -310,6 +362,17 @@ const SendTransfert = () => {
       setIsLoading(false);
     }
   };
+
+  // Gestion de la langue (RTL pour arabe, LTR sinon)
+  useEffect(() => {
+    if (i18n.language === "ar") {
+      document.body.dir = "rtl";  // sens droite → gauche
+      document.body.style.textAlign = "right";
+    } else {
+      document.body.dir = "ltr";  // sens gauche → droite
+      document.body.style.textAlign = "left";
+    }
+  }, [i18n.language]);
 
   const renderField = (fieldName, type, options = null, fullWidth = false) => {
     const hasError = errors[fieldName];
@@ -403,19 +466,48 @@ const SendTransfert = () => {
 
   return (
     <div style={containerStyle}>
-      <div style={backgroundOverlayStyle}></div>
-      
-      {/* Bouton de retour */}
-      <button
-        style={backButtonStyle}
-        onClick={handleBack}
-        onMouseEnter={() => setHoveredBtn('back')}
-        onMouseLeave={() => setHoveredBtn(null)}
-        title="Retour"
-      >
-        ←
-      </button>
-      
+      <div style={{ ...backgroundOverlayStyle, display: "flex", justifyContent: i18n.language === "ar" ? "flex-end" : "flex-start" }}></div>
+      {/* Bouton retour */}
+    <div style={backButtonWrapper}>
+    <button
+    style={backButtonStyle}
+    onClick={handleGoBack}
+    onMouseEnter={(e) => setHoveredBtn('back')}
+    onMouseLeave={() => setHoveredBtn(null)}
+    >
+    ← {t('buttons.back')}
+    </button>
+    </div>
+
+{/* Sélecteur de langue en haut à droite */}
+<div style={topBarStyle}>
+  <div style={languageSelectorStyle}>
+    <span style={{ fontSize: '0.9rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+      {t('language.select')}:
+    </span>
+    <button
+      style={languageButtonStyle(i18n.language === 'fr')}
+      onClick={() => changeLanguage('fr')}
+    >
+      FR
+    </button>
+    <button
+      style={languageButtonStyle(i18n.language === 'en')}
+      onClick={() => changeLanguage('en')}
+    >
+      EN
+    </button>
+
+    <button
+      style={languageButtonStyle(i18n.language === 'ar')}
+      onClick={() => changeLanguage('ar')}
+    >
+      AR
+    </button>
+  </div>
+</div>
+
+
       <style>{`
         @keyframes shimmer {
           0% { transform: translateX(-100%); }
