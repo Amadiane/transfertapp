@@ -20,6 +20,10 @@ class User(AbstractUser):
         return f"{self.username} ({self.role})"
 
 
+
+ 
+
+
 #transaction
 
 from django.conf import settings

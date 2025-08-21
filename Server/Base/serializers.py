@@ -44,15 +44,21 @@ class UserSerializer(serializers.ModelSerializer):
 
 #transaction
 
-from rest_framework import serializers
+# from rest_framework import serializers
 from .models import Transaction
 from decimal import Decimal, ROUND_HALF_UP
-from .utils import get_exchange_rates
+# from .utils import get_exchange_rates
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id', 'username', 'email', 'ville', 'role']
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = ['id', 'username', 'email', 'ville', 'role']
+
+#         def create(self, validated_data):
+#         # hachage du mot de passe
+#         validated_data['password'] = make_password(validated_data['password'])
+#         return super().create(validated_data)
+
 
 class TransactionSerializer(serializers.ModelSerializer):
     sender = UserSerializer(read_only=True)

@@ -209,6 +209,22 @@
     "list_employees": "Employee List"
   },
 
+  "login": {
+    "title": "Login",
+    "subtitle": "Access your personal account",
+    "username": "Username",
+    "username_placeholder": "Enter your username",
+    "password": "Password",
+    "password_placeholder": "Enter your password",
+    "submit_button": "Login",
+    "loading": "Logging in...",
+    "forgot_password": "Forgot password?",
+    "secure_connection": "Secure connection",
+    "invalid_credentials": "Invalid credentials",
+    "user_data_error": "Error retrieving user data",
+    "connection_error": "Connection error"
+  },
+
   "title.transfersSummary": "Transfers Summary",
   "subtitle.completeManagement": "Complete Management",
   "confirm.title": "Confirmation",

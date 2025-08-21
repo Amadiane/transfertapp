@@ -209,6 +209,22 @@
     "token_refresh_failed": "فشل تحديث الرمز"
   },
 
+  "login": {
+    "title": "تسجيل الدخول",
+    "subtitle": "ادخل إلى حسابك الشخصي",
+    "username": "اسم المستخدم",
+    "username_placeholder": "أدخل اسم المستخدم",
+    "password": "كلمة المرور",
+    "password_placeholder": "أدخل كلمة المرور",
+    "submit_button": "تسجيل الدخول",
+    "loading": "جارٍ تسجيل الدخول...",
+    "forgot_password": "هل نسيت كلمة المرور؟",
+    "secure_connection": "اتصال آمن",
+    "invalid_credentials": "بيانات اعتماد غير صالحة",
+    "user_data_error": "حدث خطأ أثناء جلب بيانات المستخدم",
+    "connection_error": "حدث خطأ أثناء الاتصال"
+  },
+
   "title.transfersSummary": "ملخص التحويلات",
   "subtitle.completeManagement": "إدارة شاملة",
   "confirm.title": "تأكيد",

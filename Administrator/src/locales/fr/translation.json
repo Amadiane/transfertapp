@@ -207,7 +207,22 @@
   
 },
 
-
+"login": {
+    "title": "Connexion",
+    "subtitle": "Accédez à votre espace personnel",
+    "username": "Nom d'utilisateur",
+    "username_placeholder": "Entrez votre nom d'utilisateur",
+    "password": "Mot de passe",
+    "password_placeholder": "Entrez votre mot de passe",
+    "submit_button": "Se connecter",
+    "loading": "Connexion en cours...",
+    "forgot_password": "Mot de passe oublié ?",
+    "secure_connection": "Connexion sécurisée",
+    "invalid_credentials": "Identifiants invalides",
+    "user_data_error": "Erreur lors de la récupération des données",
+    "connection_error": "Erreur lors de la connexion"
+  },
+  
 
 
   "title.transfersSummary": "Résumé des transferts",
