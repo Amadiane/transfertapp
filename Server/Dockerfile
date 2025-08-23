@@ -8,7 +8,7 @@ ENV PYTHONUNBUFFERED=1
 # 3️⃣ Créer le répertoire de l'app
 WORKDIR /app
 
-# 4️⃣ Installer les dépendances système nécessaires pour mysqlclient
+# 4️⃣ Installer les dépendances système nécessaires pour mysqlclient et Gunicorn
 RUN apt-get update && apt-get install -y \
     default-libmysqlclient-dev \
     build-essential \
@@ -22,11 +22,17 @@ COPY requirements.txt /app/
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
+# 6.1️⃣ Installer Gunicorn si ce n'est pas dans requirements.txt
+RUN pip install gunicorn
+
 # 7️⃣ Copier tout le projet
 COPY . /app/
+
+# 7.1️⃣ Collecte des fichiers statiques
+RUN python manage.py collectstatic --noinput
 
 # 8️⃣ Exposer le port Django
 EXPOSE 8000
 
-# 9️⃣ Commande pour lancer le serveur
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# 9️⃣ Commande pour lancer le serveur avec Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "transfert.wsgi:application"]

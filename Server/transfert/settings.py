@@ -24,7 +24,9 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 DEBUG = False
 # DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ['*']
+DEBUG = False
+ALLOWED_HOSTS = [os.getenv("DJANGO_ALLOWED_HOSTS", "diallodiallotransfertapp.ondigitalocean.app")]
+
 # ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1, localhost").split(",")
 
 AUTH_USER_MODEL = 'Base.User'
@@ -103,12 +105,12 @@ SIMPLE_JWT = {
 
 WSGI_APPLICATION = 'transfert.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',  # Le fichier SQLite sera créé ici
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',  # Le fichier SQLite sera créé ici
+#     }
+# }
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -130,34 +132,34 @@ DATABASES = {
 import os
 
 
-# DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "True") == "True"
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "True") == "True"
 
-# if DEVELOPMENT_MODE:
-#     # Base locale
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.mysql',
-#             'NAME': 'transfertdatabase',
-#             'USER': 'root',
-#             'PASSWORD': '',
-#             'HOST': 'localhost',
-#             'PORT': '3308',
-#             'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"}
-#         }
-#     }
-# else:
-#     # Base production sur DigitalOcean MySQL
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.mysql',
-#             'NAME': os.getenv("DB_NAME"),
-#             'USER': os.getenv("DB_USER"),
-#             'PASSWORD': os.getenv("DB_PASSWORD"),
-#             'HOST': os.getenv("DB_HOST"),
-#             'PORT': os.getenv("DB_PORT", "3306"),
-#             'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"}
-#         }
-#     }
+if DEVELOPMENT_MODE:
+    # Base locale
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'transfertdatabase',
+            'USER': 'root',
+            'PASSWORD': '',
+            'HOST': 'localhost',
+            'PORT': '3308',
+            'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"}
+        }
+    }
+else:
+    # Base production sur DigitalOcean MySQL
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.getenv("DB_NAME"),
+            'USER': os.getenv("DB_USER"),
+            'PASSWORD': os.getenv("DB_PASSWORD"),
+            'HOST': os.getenv("DB_HOST"),
+            'PORT': os.getenv("DB_PORT", "3306"),
+            'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"}
+        }
+    }
 
 
 
