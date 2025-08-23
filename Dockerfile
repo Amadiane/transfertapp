@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # 5️⃣ Copier requirements
-COPY requirements.txt /app/
+COPY Server/requirements.txt /app/
 
 # 6️⃣ Installer dépendances Python
 RUN pip install --upgrade pip
@@ -24,7 +24,7 @@ RUN pip install -r requirements.txt
 RUN pip install gunicorn
 
 # 7️⃣ Copier tout le projet Django
-COPY . /app/
+COPY Server /app
 
 # 8️⃣ Copier le build React
 # Assure-toi que le build React est dans Administrator/build
@@ -33,7 +33,7 @@ COPY Administrator/build /app/Administrator/build
 # 9️⃣ Collecte des fichiers statiques Django
 RUN python manage.py collectstatic --noinput
 
-# 🔟 Exposer le port
+# 🔟 Exposer le port Django
 EXPOSE 8000
 
 # 1️⃣1️⃣ Lancer le serveur avec Gunicorn

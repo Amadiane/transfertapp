@@ -24,7 +24,8 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 
 # DEBUG = os.getenv("DEBUG", "False") == "True"
 DEBUG = True
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['diallodiallotransfertapp.ondigitalocean.app']
+
 
 # DEBUG = False
 # ALLOWED_HOSTS = [os.getenv("DJANGO_ALLOWED_HOSTS", "diallodiallotransfertapp.ondigitalocean.app")]
