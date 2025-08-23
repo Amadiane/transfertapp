@@ -23,7 +23,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 
 # DEBUG = os.getenv("DEBUG", "False") == "True"
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['diallodiallotransfertapp.ondigitalocean.app']
 
 
@@ -70,7 +70,7 @@ ROOT_URLCONF = 'transfert.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ os.path.join(BASE_DIR, 'Administrator/build') ],
+        'DIRS': [BASE_DIR / "Administrator" / "build"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -205,7 +205,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Extra places for collectstatic to find static files.
-STATICFILES_DIRS = ( os.path.join(BASE_DIR, 'Administrator/build/static'),)
+STATICFILES_DIRS = [
+    BASE_DIR / "Administrator" / "build" / "static",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

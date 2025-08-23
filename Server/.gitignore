@@ -4,6 +4,9 @@ venv/
 #dependencies
 /Administrator/node_modules
 
+Administrator/build/
+
+
 # Ignore les fichiers compilés Python
 __pycache__/
 *.py[cod]
