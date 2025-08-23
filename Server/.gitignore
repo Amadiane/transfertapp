@@ -1,6 +1,9 @@
 # Ignore l’environnement virtuel Python
 venv/
 
+#dependencies
+/Administrator/node_modules
+
 # Ignore les fichiers compilés Python
 __pycache__/
 *.py[cod]

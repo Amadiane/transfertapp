@@ -1,6 +1,13 @@
 from pathlib import Path
 from datetime import timedelta
 
+import os
+from urllib.parse import urlparse 
+from django.core.management.utils import get_random_secret_key 
+import sys 
+
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -10,12 +17,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-nq*6_twxlu-^)^!re(2ununr(46=rr$9ab6g(4egcs_fd_k&*@'
+# SECRET_KEY = 'django-insecure-nq*6_twxlu-^)^!re(2ununr(46=rr$9ab6g(4egcs_fd_k&*@'
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+# DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1, localhost").split(",")
 
 AUTH_USER_MODEL = 'Base.User'
 
@@ -35,6 +45,7 @@ INSTALLED_APPS = [
     'Base',
     'corsheaders',
     'rest_framework_simplejwt.token_blacklist',
+    'attendance',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +65,7 @@ ROOT_URLCONF = 'transfert.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ os.path.join(BASE_DIR, 'Administrator/build') ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,23 +103,62 @@ SIMPLE_JWT = {
 
 WSGI_APPLICATION = 'transfert.wsgi.application'
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',  # Le fichier SQLite sera créé ici
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'transfertdatabase',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',  # ou l'IP du serveur MySQL
-        'PORT': '3308',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'transfertdatabase',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',  # ou l'IP du serveur MySQL
+#         'PORT': '3308',
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+#         }
+#     }
+# }
+
+import os
+
+
+# DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "True") == "True"
+
+# if DEVELOPMENT_MODE:
+#     # Base locale
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': 'transfertdatabase',
+#             'USER': 'root',
+#             'PASSWORD': '',
+#             'HOST': 'localhost',
+#             'PORT': '3308',
+#             'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"}
+#         }
+#     }
+# else:
+#     # Base production sur DigitalOcean MySQL
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': os.getenv("DB_NAME"),
+#             'USER': os.getenv("DB_USER"),
+#             'PASSWORD': os.getenv("DB_PASSWORD"),
+#             'HOST': os.getenv("DB_HOST"),
+#             'PORT': os.getenv("DB_PORT", "3306"),
+#             'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"}
+#         }
+#     }
+
 
 
 # Password validation
@@ -146,7 +196,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = ( os.path.join(BASE_DIR, 'Administrator/build/static'),)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
