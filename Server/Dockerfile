@@ -8,7 +8,7 @@ ENV PYTHONUNBUFFERED=1
 # 3️⃣ Créer le répertoire de l'app
 WORKDIR /app
 
-# 4️⃣ Installer les dépendances système nécessaires pour mysqlclient et Gunicorn
+# 4️⃣ Installer dépendances système
 RUN apt-get update && apt-get install -y \
     default-libmysqlclient-dev \
     build-essential \
@@ -18,21 +18,23 @@ RUN apt-get update && apt-get install -y \
 # 5️⃣ Copier requirements
 COPY requirements.txt /app/
 
-# 6️⃣ Installer les dépendances Python
+# 6️⃣ Installer dépendances Python
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-
-# 6.1️⃣ Installer Gunicorn si ce n'est pas dans requirements.txt
 RUN pip install gunicorn
 
-# 7️⃣ Copier tout le projet
+# 7️⃣ Copier tout le projet Django
 COPY . /app/
 
-# 7.1️⃣ Collecte des fichiers statiques
+# 8️⃣ Copier le build React
+# Assure-toi que le build React est dans Administrator/build
+COPY Administrator/build /app/Administrator/build
+
+# 9️⃣ Collecte des fichiers statiques Django
 RUN python manage.py collectstatic --noinput
 
-# 8️⃣ Exposer le port Django
+# 🔟 Exposer le port
 EXPOSE 8000
 
-# 9️⃣ Commande pour lancer le serveur avec Gunicorn
+# 1️⃣1️⃣ Lancer le serveur avec Gunicorn
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "transfert.wsgi:application"]
