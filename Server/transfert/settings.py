@@ -67,10 +67,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'transfert.urls'
 
+TEMPLATES_DIR = BASE_DIR.parent / "Administrator" / "build"
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "Administrator" / "build"],
+        'DIRS': [TEMPLATES_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
