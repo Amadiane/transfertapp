@@ -24,7 +24,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 
 # DEBUG = os.getenv("DEBUG", "False") == "True"
 DEBUG = True
-ALLOWED_HOSTS=127.0.0.1,102.164.134.4
+ALLOWED_HOSTS = ["127.0.0.1", "102.164.134.4"]
 
 
 # DEBUG = False
