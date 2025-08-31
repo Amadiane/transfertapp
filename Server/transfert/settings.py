@@ -23,8 +23,8 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 
 # DEBUG = os.getenv("DEBUG", "False") == "True"
-DEBUG = False
-ALLOWED_HOSTS = ['diallodiallotransfertapp.ondigitalocean.app']
+DEBUG = True
+ALLOWED_HOSTS=127.0.0.1,102.164.134.4
 
 
 # DEBUG = False
@@ -138,15 +138,14 @@ import os
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "True") == "True"
 
 if DEVELOPMENT_MODE:
-    # Base locale
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'transfertdatabase',
-            'USER': 'root',
-            'PASSWORD': '',
-            'HOST': 'localhost',
-            'PORT': '3308',
+            'USER': 'ama',
+            'PASSWORD': 'ama',
+            'HOST': '127.0.0.1',  # localhost peut parfois poser problème avec MySQL + auth_socket
+            'PORT': '3306',
             'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"}
         }
     }
