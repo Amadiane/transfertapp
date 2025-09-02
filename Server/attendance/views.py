@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from pathlib import Path
-from django.conf import settings
+from django.http import HttpResponse
+import os
 
 def index(request):
-    return render(request, "index.html")  # Django cherchera dans TEMPLATES['DIRS']
+    with open(os.path.join(os.path.dirname(__file__), "..", "Administrator", "build", "index.html")) as f:
+        return HttpResponse(f.read())
