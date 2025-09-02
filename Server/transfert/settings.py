@@ -19,6 +19,7 @@ AUTH_USER_MODEL = 'Base.User'
 # CORS
 # ------------------------
 CORS_ALLOWED_ORIGINS = [
+    "http://102.164.134.4:8000",
     "http://localhost:3000",  # l'URL de ton frontend React
 ]
 
