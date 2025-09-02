@@ -59,7 +59,8 @@ TEMPLATES_DIR = BASE_DIR.parent / "Administrator" / "build"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATES_DIR],
+        #'DIRS': [TEMPLATES_DIR],
+        "DIRS": [os.path.join(BASE_DIR, "administrator")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -134,10 +135,14 @@ USE_TZ = True
 # Static files
 # ------------------------
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = [
-    BASE_DIR / "Administrator" / "build" / "static",
+    os.path.join(BASE_DIR, "administrator"),
 ]
+#STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+#STATICFILES_DIRS = [
+#    BASE_DIR / "Administrator" / "build" / "static",
+#]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
