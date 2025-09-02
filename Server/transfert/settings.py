@@ -75,7 +75,7 @@ ROOT_URLCONF = 'transfert.urls'
 # ]
 import os
 
-TEMPLATES_DIR = BASE_DIR / "Administrator" / "build"
+TEMPLATES_DIR = os.path.join(BASE_DIR, "..", "Administrator", "build")
 
 TEMPLATES = [
     {
@@ -158,9 +158,13 @@ USE_TZ = True
 # ------------------------
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "Administrator", "build", "static"),
+    os.path.join(BASE_DIR, "..", "Administrator", "build", "static"),
 ]
+
 
 #STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
