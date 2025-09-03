@@ -128,7 +128,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'transfertdatabase',
         'USER': 'ama',
-        'PASSWORD': 'ama',
+        'PASSWORD': 'Am@622401692',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
