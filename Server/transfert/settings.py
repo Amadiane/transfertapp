@@ -10,8 +10,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ------------------------
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 DEBUG = True
-ALLOWED_HOSTS = ["diallodiallotransfert.com", "www.diallodiallotransfert.com", "102.164.134.4"]
+ALLOWED_HOSTS = ["diallodiallotransfert.com", "www.diallodiallotransfert.com", "102.164.134.4", "127.0.0.1"]
 # ALLOWED_HOSTS = ["127.0.0.1", "localhost", "102.164.134.4"]
+#ALLOWED_HOSTS = ['*']
+
 
 
 AUTH_USER_MODEL = 'Base.User'
@@ -20,7 +22,7 @@ AUTH_USER_MODEL = 'Base.User'
 # CORS
 # ------------------------
 CORS_ALLOWED_ORIGINS = [
-    # "http://localhost:3000",  # l'URL de ton frontend React
+     #"http://localhost:3000",  # l'URL de ton frontend React
     # "http://102.164.134.4:8000",
     "http://diallodiallotransfert.com",
 ]
