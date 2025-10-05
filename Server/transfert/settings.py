@@ -9,8 +9,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Sécurité
 # ------------------------
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
-DEBUG = True
-ALLOWED_HOSTS = ["diallodiallotransfert.com", "www.diallodiallotransfert.com", "102.164.134.4", "127.0.0.1"]
+DEBUG = False
+ALLOWED_HOSTS = ["102.164.134.4", "127.0.0.1"]  # Ton IP publique et localhost
+#ALLOWED_HOSTS = ["diallodiallotransfert.com", "www.diallodiallotransfert.com", "102.164.134.4", "127.0.0.1"]
 # ALLOWED_HOSTS = ["127.0.0.1", "localhost", "102.164.134.4"]
 #ALLOWED_HOSTS = ['*']
 
@@ -21,17 +22,30 @@ AUTH_USER_MODEL = 'Base.User'
 # ------------------------
 # CORS
 # ------------------------
+# CORS_ALLOWED_ORIGINS = [
+#      #"http://localhost:3000",  # l'URL de ton frontend React
+#     # "http://102.164.134.4:8000",
+#     "http://diallodiallotransfert.com",
+# ]
 CORS_ALLOWED_ORIGINS = [
-     #"http://localhost:3000",  # l'URL de ton frontend React
-    # "http://102.164.134.4:8000",
-    "http://diallodiallotransfert.com",
+    "http://102.164.134.4",  # ton IP publique
 ]
 
+
+
+
+
+# CSRF_TRUSTED_ORIGINS = [
+#     #"http://localhost:3000",
+#     #"http://102.164.134.4:3000",
+#     "http://diallodiallotransfert.com",
+#     #"https://diallodiallotransfert.com",
+# ]
+
+
+
 CSRF_TRUSTED_ORIGINS = [
-    #"http://localhost:3000",
-    #"http://102.164.134.4:3000",
-    "http://diallodiallotransfert.com",
-    #"https://diallodiallotransfert.com",
+    "http://102.164.134.4",
 ]
 
 # ------------------------
