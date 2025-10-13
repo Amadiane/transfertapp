@@ -10,10 +10,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ------------------------
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 DEBUG = False
-ALLOWED_HOSTS = ["102.164.134.4", "127.0.0.1"]  # Ton IP publique et localhost
+#ALLOWED_HOSTS = ["102.164.134.4", "127.0.0.1"]  # Ton IP publique et localhost
 #ALLOWED_HOSTS = ["diallodiallotransfert.com", "www.diallodiallotransfert.com", "102.164.134.4", "127.0.0.1"]
-# ALLOWED_HOSTS = ["127.0.0.1", "localhost", "102.164.134.4"]
+#ALLOWED_HOSTS = ["127.0.0.1", "localhost", "102.164.134.4"]
 #ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.onrender.com']
 
 
 
@@ -22,31 +23,31 @@ AUTH_USER_MODEL = 'Base.User'
 # ------------------------
 # CORS
 # ------------------------
-# CORS_ALLOWED_ORIGINS = [
-#      #"http://localhost:3000",  # l'URL de ton frontend React
-#     # "http://102.164.134.4:8000",
-#     "http://diallodiallotransfert.com",
-# ]
 CORS_ALLOWED_ORIGINS = [
-    "http://102.164.134.4",  # ton IP publique
+    "http://localhost:3000",  # l'URL de ton frontend React
+    # "http://102.164.134.4:8000",
+    #"http://diallodiallotransfert.com",
 ]
-
-
-
-
-
-# CSRF_TRUSTED_ORIGINS = [
-#     #"http://localhost:3000",
-#     #"http://102.164.134.4:3000",
-#     "http://diallodiallotransfert.com",
-#     #"https://diallodiallotransfert.com",
+# CORS_ALLOWED_ORIGINS = [
+#     "http://102.164.134.4",  # ton IP publique
 # ]
+
+
 
 
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://102.164.134.4",
+    "http://localhost:3000",
+    #"http://102.164.134.4:3000",
+    #"http://diallodiallotransfert.com",
+    #"https://diallodiallotransfert.com",
 ]
+
+
+
+# CSRF_TRUSTED_ORIGINS = [
+#     "http://102.164.134.4",
+# ]
 
 # ------------------------
 # Apps
@@ -67,12 +68,14 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'transfert.urls'
