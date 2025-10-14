@@ -146,19 +146,32 @@ WSGI_APPLICATION = 'transfert.wsgi.application'
 # ------------------------
 # Base de données (locale MySQL)
 # ------------------------
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'transfertdatabase',
+#         'USER': 'amadou',
+#         'PASSWORD': 'amadou',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306',
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+#         }
+#     }
+# }
+import os
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'transfertdatabase',
-        'USER': 'amadou',
-        'PASSWORD': 'amadou',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME', 'transfertdatabase'),        # nom de la DB
+        'USER': os.environ.get('DB_USER', 'transfertdatabase_user'),    # utilisateur
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'ton_mdp'),           # mot de passe
+        'HOST': os.environ.get('DB_HOST', 'dpg-d3mp8madbo4c73etqbug-a'),# host
+        'PORT': os.environ.get('DB_PORT', '5432'),                      # port
     }
 }
+
 
 # ------------------------
 # Password validation
