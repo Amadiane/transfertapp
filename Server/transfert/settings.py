@@ -172,18 +172,27 @@ WSGI_APPLICATION = 'transfert.wsgi.application'
 #         }
 #     }
 # }
+# import os
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('DB_NAME', 'transfertdatabase'),        # nom de la DB
+#         'USER': os.environ.get('DB_USER', 'postgres'),    # utilisateur
+#         'PASSWORD': os.environ.get('DB_PASSWORD', 'root'),           # mot de passe
+#         'HOST': os.environ.get('DB_HOST', 'localhost'),# host
+#         'PORT': os.environ.get('DB_PORT', '5432'),                      # port
+#     }
+# }
+import dj_database_url
 import os
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'transfertdatabase'),        # nom de la DB
-        'USER': os.environ.get('DB_USER', 'postgres'),    # utilisateur
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'root'),           # mot de passe
-        'HOST': os.environ.get('DB_HOST', 'localhost'),# host
-        'PORT': os.environ.get('DB_PORT', '5432'),                      # port
-    }
+    'default': dj_database_url.config(
+        default='postgresql://transfertdatabase_user:393uvjd9mqqwB8CEt1Q2BcCC4UuAUpIS@dpg-d3mp8madbo4c73etqbug-a/transfertdatabase'
+    )
 }
+
 
 
 # ------------------------
