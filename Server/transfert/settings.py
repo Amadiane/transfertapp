@@ -15,19 +15,31 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #ALLOWED_HOSTS = ["127.0.0.1", "localhost", "102.164.134.4"]
 #ALLOWED_HOSTS = ['*']
 # ALLOWED_HOSTS = ['.onrender.com']
+SECRET_KEY = 'django-secret-key'
+DEBUG = True
+
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+
+ALLOWED_HOSTS = [
+    'diallodiallotransfert.com',
+    'www.diallodiallotransfert.com',
+    '127.0.0.1',
+    'localhost',
+]
 
 
 # ----------------------
 # Security settings
 # ----------------------
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
-DEBUG = False
-ALLOWED_HOSTS = ['.onrender.com']
+# SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
+# DEBUG = False
+# ALLOWED_HOSTS = ['.onrender.com']
 
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
 
-CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "https://ton-backend.onrender.com").split(',')
+#CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "https://ton-backend.onrender.com").split(',')
 
 
 
@@ -159,19 +171,19 @@ WSGI_APPLICATION = 'transfert.wsgi.application'
 # ------------------------
 # Base de données (locale MySQL)
 # ------------------------
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'transfertdatabase',
-#         'USER': 'amadou',
-#         'PASSWORD': 'amadou',
-#         'HOST': '127.0.0.1',
-#         'PORT': '3306',
-#         'OPTIONS': {
-#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-#         }
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'transfertdatabase',
+        'USER': 'ama',
+        'PASSWORD': 'ama',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
+    }
+}
 # import os
 
 # DATABASES = {
@@ -184,14 +196,15 @@ WSGI_APPLICATION = 'transfert.wsgi.application'
 #         'PORT': os.environ.get('DB_PORT', '5432'),                      # port
 #     }
 # }
-import dj_database_url
-import os
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://transfertdatabase_user:393uvjd9mqqwB8CEt1Q2BcCC4UuAUpIS@dpg-d3mp8madbo4c73etqbug-a/transfertdatabase'
-    )
-}
+# import dj_database_url
+# import os
+
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='postgresql://transfertdatabase_user:393uvjd9mqqwB8CEt1Q2BcCC4UuAUpIS@dpg-d3mp8madbo4c73etqbug-a/transfertdatabase'
+#     )
+# }
 
 
 
