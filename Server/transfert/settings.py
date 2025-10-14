@@ -8,13 +8,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ------------------------
 # Sécurité
 # ------------------------
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
-DEBUG = False
+# SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
+# DEBUG = False
 #ALLOWED_HOSTS = ["102.164.134.4", "127.0.0.1"]  # Ton IP publique et localhost
 #ALLOWED_HOSTS = ["diallodiallotransfert.com", "www.diallodiallotransfert.com", "102.164.134.4", "127.0.0.1"]
 #ALLOWED_HOSTS = ["127.0.0.1", "localhost", "102.164.134.4"]
 #ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['.onrender.com']
+
+
+# ----------------------
+# Security settings
+# ----------------------
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
+DEBUG = False
 ALLOWED_HOSTS = ['.onrender.com']
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "https://ton-backend.onrender.com").split(',')
 
 
 
@@ -165,9 +178,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME', 'transfertdatabase'),        # nom de la DB
-        'USER': os.environ.get('DB_USER', 'transfertdatabase_user'),    # utilisateur
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'ton_mdp'),           # mot de passe
-        'HOST': os.environ.get('DB_HOST', 'dpg-d3mp8madbo4c73etqbug-a'),# host
+        'USER': os.environ.get('DB_USER', 'postgres'),    # utilisateur
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'root'),           # mot de passe
+        'HOST': os.environ.get('DB_HOST', 'localhost'),# host
         'PORT': os.environ.get('DB_PORT', '5432'),                      # port
     }
 }
