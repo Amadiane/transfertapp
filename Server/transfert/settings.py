@@ -54,6 +54,7 @@ AUTH_USER_MODEL = 'Base.User'
 CORS_ALLOWED_ORIGINS = [
     "https://diallodiallotransfert.com",
     "https://www.diallodiallotransfert.com",
+    "https://transfertapp.vercel.app",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
