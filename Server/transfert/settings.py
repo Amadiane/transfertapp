@@ -22,19 +22,26 @@ SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
 
 ALLOWED_HOSTS = ['transfertapp-1.onrender.com']
+SECRET_KEY = 'django-secret-key'
+DEBUG = False
+
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+
+ALLOWED_HOSTS = ['transfertapp-1.onrender.com']
 
 
 # ----------------------
 # Security settings
 # ----------------------
-# SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
-# DEBUG = False
-# ALLOWED_HOSTS = ['.onrender.com']
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
+DEBUG = False
+ALLOWED_HOSTS = ['.onrender.com']
 
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
-#CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "https://ton-backend.onrender.com").split(',')
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "https://ton-backend.onrender.com").split(',')
 
 
 
@@ -58,33 +65,16 @@ CORS_ALLOW_ALL_ORIGINS = True
 #     "https://transfertapp.vercel.app",
 # ]
 
-# CSRF_TRUSTED_ORIGINS = [
-#     "https://diallodiallotransfert.com",
-#     "https://www.diallodiallotransfert.com",
-# ]
 
 
-CORS_ALLOWED_ORIGINS = [
-    "https://transfertapp.vercel.app",
-    "http://localhost:3000",  # l'URL de ton frontend React
-    "http://102.164.134.4:8000",
-]
+
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
-    "http://102.164.134.4:3000",
-    "https://transfertapp.vercel.app",
+    #"http://102.164.134.4:3000",
+    #"http://diallodiallotransfert.com",
+    #"https://diallodiallotransfert.com",
 ]
-
-
-
-
-# CSRF_TRUSTED_ORIGINS = [
-#     "http://localhost:3000",
-#     #"http://102.164.134.4:3000",
-#     #"http://diallodiallotransfert.com",
-#     #"https://diallodiallotransfert.com",
-# ]
 
 
 
@@ -216,56 +206,13 @@ WSGI_APPLICATION = 'transfert.wsgi.application'
 # }
 
 import dj_database_url
-# import os
-
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default='postgresql://transfertdatabase_user:393uvjd9mqqwB8CEt1Q2BcCC4UuAUpIS@dpg-d3mp8madbo4c73etqbug-a/transfertdatabase'
-#     )
-# }
-
-# if os.environ.get('DATABASE_URL'):
-#     # Déploiement sur Render
-#     DATABASES = {
-#         'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-#     }
-# else:
-#     # Local : MySQL
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.mysql',
-#             'NAME': 'transfertdatabase',
-#             'USER': 'ama',
-#             'PASSWORD': 'ama',
-#             'HOST': '127.0.0.1',
-#             'PORT': '3306',
-#             'OPTIONS': {
-#                 'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-#             }
-#         }
-#     }
 import os
-import dj_database_url
 
-if os.environ.get('DATABASE_URL'):
-    # Déploiement sur Render
-    DATABASES = {
-        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-    }
-else:
-    # Local : PostgreSQL
-    DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'transfertdatabase',   # base créée
-        'USER': 'ama',                 # utilisateur créé
-        'PASSWORD': 'ama',          # mot de passe
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+DATABASES = {
+    'default': dj_database_url.config(
+        default='postgresql://transfertdatabase_user:393uvjd9mqqwB8CEt1Q2BcCC4UuAUpIS@dpg-d3mp8madbo4c73etqbug-a/transfertdatabase'
+    )
 }
-
-
 
 
 

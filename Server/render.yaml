@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: transfert-app
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn transfert.wsgi:application
+    envVars:
+      - key: PYTHONPATH
+        value: Server
