@@ -40,6 +40,7 @@ ALLOWED_HOSTS = ['transfertapp-1.onrender.com']
 
 AUTH_USER_MODEL = 'Base.User'
 
+CORS_ALLOW_ALL_ORIGINS = True
 # ------------------------
 # CORS
 # ------------------------
@@ -51,18 +52,25 @@ AUTH_USER_MODEL = 'Base.User'
 # CORS_ALLOWED_ORIGINS = [
 #     "http://102.164.134.4",  # ton IP publique
 # ]
+# CORS_ALLOWED_ORIGINS = [
+#     # "https://diallodiallotransfert.com",
+#     # "https://www.diallodiallotransfert.com",
+#     "https://transfertapp.vercel.app",
+# ]
+
+# CSRF_TRUSTED_ORIGINS = [
+#     "https://diallodiallotransfert.com",
+#     "https://www.diallodiallotransfert.com",
+# ]
+
+
 CORS_ALLOWED_ORIGINS = [
-    "https://diallodiallotransfert.com",
-    "https://www.diallodiallotransfert.com",
     "https://transfertapp.vercel.app",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://diallodiallotransfert.com",
-    "https://www.diallodiallotransfert.com",
+    "https://transfertapp.vercel.app",
 ]
-
-
 
 
 
